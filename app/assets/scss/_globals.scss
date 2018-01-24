@@ -1,0 +1,107 @@
+$d : 0.5rem 0.7rem 0.9rem 1.5rem 3rem 5rem;
+$action-blue: #60C1F9;
+
+@mixin get-list($bar, $prop) {
+  $prop: nth($d, $bar);
+}
+.list-item {
+  list-style-type: none;
+  padding: 0.5rem;
+  border: 2px solid white;
+}
+
+.list-item.active {
+  background-color: $action-blue;
+  color: white;
+}
+
+.list-item.active-border {
+  border-color: $action-blue;
+}
+
+.input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 0.3rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+// fonts size
+
+.font-large {
+  font-size: 2em;
+}
+
+.font-medium {
+  font-size: 1.1em;
+}
+
+.font-small {
+  font-size: 0.8em;
+}
+
+.font-tiny {
+  font-size: 0.5em;
+}
+
+// padding
+
+@for $num from 1 through 6 {
+  .p-#{$num} {
+    padding: nth($d, $num);
+  }
+  .pr-#{$num} {
+    padding-right: nth($d, $num);
+  }
+  .pl-#{$num} {
+    padding-left: nth($d, $num);
+  }
+  .pt-#{$num} {
+    padding-top: nth($d, $num);
+  }
+  .pb-#{$num} {
+    padding-bottom: nth($d, $num);
+  }
+}
+
+// margin
+
+@for $num from 1 through 6 {
+  .m-#{$num} {
+    margin: nth($d, $num);
+  }
+  .mr-#{$num} {
+    margin-right: nth($d, $num);
+  }
+  .ml-#{$num} {
+    margin-left: nth($d, $num);
+  }
+  .mt-#{$num} {
+    margin-top: nth($d, $num);
+  }
+  .mb-#{$num} {
+    margin-bottom: nth($d, $num);
+  }
+}
+
+// button
+
+.button {
+  outline: none;
+  border: 1px solid black;
+  padding: nth($d, 1) nth($d, 2);
+  font-size: 0.75em;
+}
+
+.button-blue {
+  background-color: $action-blue;
+  color: white;
+  border: none;
+}
+
+// flex
+

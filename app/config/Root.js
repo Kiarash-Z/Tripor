@@ -7,11 +7,11 @@ import * as stores from '../stores';
 
 const Root = () => {
   return (
- 
+    <Provider {...stores}>
       <Router>
         <Route path="/" component={App} />
       </Router>
- 
+    </Provider>
   );
 };
 

@@ -1,6 +1,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-
+@import 'fonts';
+@import 'globals';
+@import 'layers';
 
 body {
   height: 100vh;
@@ -17,11 +19,4 @@ body {
   display: flex;
   flex: 1;
   background-color: #E5E5E5;
-
-}
-
-.layers {
-  background-color: white;
-  height: 100%;
-  padding: 1rem 1.5rem;
 }

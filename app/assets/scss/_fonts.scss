@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'Tripor';
+  src: url('../fonts/Tripor.ttf?yomkwx') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Tripor' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.tripor-square:before {
+  content: "\e900";
+}
+.tripor-checkmark:before {
+  content: "\e901";
+}
+.tripor-circle:before {
+  content: "\e902";
+}
+.tripor-close:before {
+  content: "\e903";
+}
+.tripor-layers:before {
+  content: "\e904";
+}
+.tripor-cursor:before {
+  content: "\e905";
+}
+.tripor-settings:before {
+  content: "\e907";
+}
+.tripor-computer:before {
+  content: "\e908";
+}
+.tripor-mobile:before {
+  content: "\e909";
+}
+.tripor-height:before {
+  content: "\e906";
+}
+.tripor-width:before {
+  content: "\e90a";
+}
