@@ -1,7 +1,24 @@
 .layers {
   background-color: white;
   height: 100%;
-  padding: 1rem 1.5rem;
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 12rem;
+  .layers__title {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    color: #6d6d6d;
+  }
+  .tree__item {
+    background-color: #EFEFEF;
+    display: flex;
+    align-items: center;
+    padding: 0.2rem 0.7rem;
+    user-select: none;
+  }
+  .m-draggable {
+    position: absolute;
+  }
 }
 
 .new-frame__details {
