@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'mobx-react';
+import * as stores from './stores';
 import { AppContainer } from 'react-hot-loader';
 
 import Root from './config/Root';
@@ -7,7 +9,9 @@ import Root from './config/Root';
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Component />
+      <Provider {...stores}>
+        <Component />
+      </Provider>
     </AppContainer>,
     document.getElementById('root'),
   );

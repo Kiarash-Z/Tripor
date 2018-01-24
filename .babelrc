@@ -5,7 +5,6 @@
     "react",
     "react-boilerplate"
   ],
-
   "plugins": [
     "react-hot-loader/babel"
   ]

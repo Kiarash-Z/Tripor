@@ -1,5 +1,27 @@
-$color: #262828;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 
 body {
-  color: $color;
+  height: 100vh;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sections-container {
+  display: flex;
+  flex: 1;
+  background-color: #E5E5E5;
+
+}
+
+.layers {
+  background-color: white;
+  height: 100%;
+  padding: 1rem 1.5rem;
 }
