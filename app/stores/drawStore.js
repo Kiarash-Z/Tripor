@@ -5,6 +5,7 @@ import { tools } from '../constants/drawConstants';
 class DrawStore {
   @observable tools = JSON.parse(JSON.stringify(tools));
   @observable canvas = null;
+  @observable projectName = 'Untitled';
 
   @action.bound
   setActiveTool(id) {

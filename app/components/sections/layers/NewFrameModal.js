@@ -11,6 +11,8 @@ const NewFrameModal = ({
   activeDevice,
   changeDimensions,
   createFrame,
+  projectName,
+  updateProjectName,
 }) => {
   const renderDevices = () => {
     return devices.map(device => (
@@ -32,8 +34,8 @@ const NewFrameModal = ({
       contentLabel="Example Modal"
     >
       <h4 style={{ fontWeight: '100' }}>Create a new frame</h4>
-      <div className="new-frame__details mt-5">
-        <div className="mr-6">
+      <div className="new-frame__details mt-6">
+        <div className="mr-7">
           <h5 className="mb-3">Predefined</h5>
           <ul>
             {renderDevices()}

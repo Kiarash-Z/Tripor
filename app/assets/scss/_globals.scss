@@ -1,4 +1,4 @@
-$d : 0.5rem 0.7rem 0.9rem 1.5rem 3rem 5rem;
+$d : 0.5rem 0.7rem 0.9rem 1.5rem 2rem 3rem 5rem 7rem;
 $action-blue: #60C1F9;
 
 @mixin get-list($bar, $prop) {
@@ -50,7 +50,7 @@ $action-blue: #60C1F9;
 
 // padding
 
-@for $num from 1 through 6 {
+@for $num from 1 through 8 {
   .p-#{$num} {
     padding: nth($d, $num);
   }
@@ -70,7 +70,7 @@ $action-blue: #60C1F9;
 
 // margin
 
-@for $num from 1 through 6 {
+@for $num from 1 through 8 {
   .m-#{$num} {
     margin: nth($d, $num);
   }

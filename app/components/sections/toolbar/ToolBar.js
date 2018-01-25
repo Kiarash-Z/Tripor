@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
+import { Input } from '../../common';
+
 @inject('drawStore')
 @observer
 class ToolBar extends Component {
@@ -24,7 +26,15 @@ class ToolBar extends Component {
           </a>
           {renderTools()}
         </div>
-        <h5 style={{ gridColumn: 2 }} className="toolbar__title padded-item">Untitled</h5>
+        <div className="toolbar__title-container padded-item">
+          <Input
+            className="toolbar__title font-small"
+            value={drawStore.projectName}
+            onChange={value => { drawStore.projectName = value; }}
+            onClick={({ target }) => target.setSelectionRange(0, target.value.length)}
+          />
+          <i className="tripor-edit toolbar__title-icon" />
+        </div>
         <div className="padded-item pointer font-small" style={{ gridColumn: 3, textAlign: 'right' }}>
           {drawStore.zoomPercentage}
         </div>
