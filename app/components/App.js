@@ -29,9 +29,9 @@ const App = () => {
       <ToolBar />
       <div className="sections-container">
         <Layers />
+        <canvas id="canvas" />
         <Properties />
       </div>
-
     </div>
   );
 };

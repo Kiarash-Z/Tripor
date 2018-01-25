@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx';
+import { drawStore } from './';
 import { predefinedDevices } from '../constants/layersConstants';
 
 class LayersStore {
@@ -35,16 +36,20 @@ class LayersStore {
   @action.bound
   createFrame() {
     const { width, height } = this.activeDevice;
+    const frame = {
+      width,
+      height,
+      module: 'Frame 1',
+      leaf: true,
+      iconType: 'tripor-frame',
+    };
+    drawStore.initializeFrame(frame);
     this.treeData = {
       ...this.treeData,
       children: [
-        ...this.treeData.children, {
-          width,
-          height,
-          module: 'Frame 1',
-          leaf: true,
-          iconType: 'tripor-frame',
-        }],
+        ...this.treeData.children,
+        frame,
+      ],
     };
     this.isNewFrameModalOpen = false;
   }

@@ -18,15 +18,15 @@ class ToolBar extends Component {
 
     return (
       <div className="toolbar">
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', gridColumn: 1 }}>
           <a className="p-3 pointer toolbar__tool">
             <i className="tripor-menu" style={{ color: 'white' }} />
           </a>
           {renderTools()}
         </div>
-        <h5 className="toolbar__title">Untitled</h5>
-        <div className="toolbar__tool pointer font-small" style={{ color: 'white' }}>
-          100%
+        <h5 style={{ gridColumn: 2 }} className="toolbar__title padded-item">Untitled</h5>
+        <div className="padded-item pointer font-small" style={{ gridColumn: 3, textAlign: 'right' }}>
+          {drawStore.zoomPercentage}
         </div>
       </div>
     );

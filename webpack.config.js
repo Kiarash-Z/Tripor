@@ -122,15 +122,6 @@ const config = {
   },
 
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      test: /\.js$/,
-      options: {
-        eslint: {
-          configFile: resolve(__dirname, '.eslintrc'),
-          cache: false,
-        }
-      },
-    }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new ExtractTextPlugin({ filename: './styles/style.css', disable: false, allChunks: true }),
     new OpenBrowserPlugin({ url: 'http://localhost:8080' }),

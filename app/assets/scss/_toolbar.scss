@@ -1,8 +1,7 @@
 .toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
   background-color: #2c2c2c;
+  grid-template-columns: 45% 10% 45%;
   .toolbar__tool {
     padding: 0.8rem 1.3rem;
     &:hover {
@@ -16,5 +15,9 @@
     text-align: center;
     color: white;
     font-weight: 100;
+  }
+  .padded-item {
+    padding: 0.8rem 1.3rem;
+    color: white;
   }
 }
