@@ -1,5 +1,4 @@
 import { observable, action, computed } from 'mobx';
-import uuid from 'uuid/v1';
 import { predefinedDevices } from '../constants/layersConstants';
 
 class LayersStore {
@@ -9,6 +8,7 @@ class LayersStore {
 
   @action
   getLayers() {
+    // condition will update
     if (true) this.isNewFrameModalOpen = true;
   }
 
@@ -42,12 +42,6 @@ class LayersStore {
           width,
           height,
           module: 'Frame 1',
-          leaf: true,
-          iconType: 'tripor-frame',
-        }, {
-          width,
-          height,
-          module: 'Framed 1',
           leaf: true,
           iconType: 'tripor-frame',
         }],

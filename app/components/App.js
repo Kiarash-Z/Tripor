@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-// import ToolBar from './sections/ToolBar';
+import ToolBar from './sections/toolbar/ToolBar';
 import Layers from './sections/layers/Layers';
 // import Properties from './sections/Properties';
 
@@ -26,7 +26,7 @@ Modal.defaultStyles.content = contentStyles;
 const App = () => {
   return (
     <div className="container">
-      {/* <ToolBar /> */}
+      <ToolBar />
       <div className="sections-container">
         <Layers />
         {/* <Properties /> */}

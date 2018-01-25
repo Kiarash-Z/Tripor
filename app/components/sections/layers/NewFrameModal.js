@@ -19,7 +19,7 @@ const NewFrameModal = ({
         onClick={() => onSelectDevice(device.id)}
         className={`list-item mb-2 font-small pointer ${device.isSelected ? 'active-border' : ' '}`}
       >
-        <i className={`tripor-${device.icon} font-medium mr-1`} />
+        <i className={`${device.icon} font-medium mr-1`} />
         <span>{device.name}</span>
       </li>
     ));
