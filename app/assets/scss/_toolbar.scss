@@ -1,6 +1,7 @@
 .toolbar {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   background-color: #2c2c2c;
   .toolbar__tool {
     padding: 0.8rem 1.3rem;
@@ -10,5 +11,10 @@
   }
   .toolbar__tool.active {
     background-color: $action-blue;
+  }
+  .toolbar__title {
+    text-align: center;
+    color: white;
+    font-weight: 100;
   }
 }

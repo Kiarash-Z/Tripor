@@ -1,0 +1,15 @@
+.properties {
+  background-color: white;
+  height: 100%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  .properties__title {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    color: #6d6d6d;
+    text-align: center;
+  }
+}

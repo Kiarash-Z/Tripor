@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import ToolBar from './sections/toolbar/ToolBar';
 import Layers from './sections/layers/Layers';
-// import Properties from './sections/Properties';
+import Properties from './sections/properties/Properties';
 
 const contentStyles = {
   top: '50%',
@@ -29,7 +29,7 @@ const App = () => {
       <ToolBar />
       <div className="sections-container">
         <Layers />
-        {/* <Properties /> */}
+        <Properties />
       </div>
 
     </div>

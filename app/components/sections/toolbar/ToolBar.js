@@ -18,10 +18,16 @@ class ToolBar extends Component {
 
     return (
       <div className="toolbar">
-        <a className="p-3 pointer toolbar__tool">
-          <i className="tripor-menu" style={{ color: 'white' }} />
-        </a>
-        {renderTools()}
+        <div style={{ display: 'flex' }}>
+          <a className="p-3 pointer toolbar__tool">
+            <i className="tripor-menu" style={{ color: 'white' }} />
+          </a>
+          {renderTools()}
+        </div>
+        <h5 className="toolbar__title">Untitled</h5>
+        <div className="toolbar__tool pointer font-small" style={{ color: 'white' }}>
+          100%
+        </div>
       </div>
     );
   }
