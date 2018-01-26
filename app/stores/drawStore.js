@@ -32,9 +32,7 @@ class DrawStore {
   setZoom(frameWidth, frameHeight) {
     const { width, height } = this.canvas;
     const zoomLevel = (width * height) / (frameWidth * frameHeight) / 2;
-
-    // /2 is for center
-    this.canvas.zoomToPoint(new fabric.Point(width / 2, height / 2), zoomLevel);
+    this.canvas.zoomToPoint(this.centerPoint, zoomLevel);
   }
 
   @action.bound
@@ -54,11 +52,36 @@ class DrawStore {
     });
   }
 
+  @action
+  changeZoom(method) {
+    const value = method === 'zoomIn' ? 0.1 : -0.1;
+    let zoomLevel = (Number(this.zoomPercentage.slice(0, -1)) / 100) + value;
+    if (zoomLevel <= 0.01) zoomLevel = 0.01;
+    if (zoomLevel >= 5) zoomLevel = 5;
+    this.canvas.zoomToPoint(this.centerPoint, zoomLevel);
+    this.updateCanvas();
+  }
+
+  @action
+  updateCanvas() {
+    // bcuz canvas itself isn't observable
+    const cloned = this.canvas;
+    this.canvas = null;
+    this.canvas = cloned;
+  }
+
+  @computed get
+  centerPoint() {
+    const { width, height } = this.canvas;
+    return new fabric.Point(width / 2, height / 2);
+  }
+
   @computed get
   zoomPercentage() {
     if (!this.canvas) return '100%';
     return `${(this.canvas.getZoom() * 100).toFixed(2)}%`;
   }
+
 }
 
 const drawStore = new DrawStore;

@@ -35,8 +35,18 @@ class ToolBar extends Component {
           />
           <i className="tripor-edit toolbar__title-icon" />
         </div>
-        <div className="padded-item pointer font-small" style={{ gridColumn: 3, textAlign: 'right' }}>
-          {drawStore.zoomPercentage}
+        <div className="toolbar__percentage pr-4 pointer font-small">
+          <i
+            className="tripor-minus p-2 font-small"
+            style={{ color: 'white' }}
+            onClick={() => drawStore.changeZoom('zoomOut')}
+          />
+          <span style={{ color: 'white' }}>{drawStore.zoomPercentage}</span>
+          <i
+            className="tripor-plus p-2 font-small"
+            style={{ color: 'white' }}
+            onClick={() => drawStore.changeZoom('zoomIn')}
+          />
         </div>
       </div>
     );
