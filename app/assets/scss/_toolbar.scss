@@ -41,3 +41,28 @@
     justify-content: flex-end;
   }
 }
+.info-modal {
+  .modal-title__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .modal__icon {
+    color: $action-blue;
+  }
+  .list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .list-container > * {
+    display: flex;
+    justify-content: space-between;
+  }
+  .key-highlight {
+    padding: 0.2rem 0.4rem;
+    background-color: rgba(27,31,35,0.05);
+    border-radius: 3px;
+    font-size: 1.3em;
+  }
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { Input } from '../../common';
+import InfoModal from './InfoModal';
 
 @inject('drawStore')
 @observer
@@ -22,8 +23,11 @@ class ToolBar extends Component {
     return (
       <div className="toolbar">
         <div style={{ display: 'flex', gridColumn: 1 }}>
-          <a className="p-3 pointer toolbar__tool">
-            <i className="tripor-menu" style={{ color: 'white' }} />
+          <a
+            className="p-3 pointer toolbar__tool"
+            onClick={() => { drawStore.isInfoModalOpen = true; }}
+          >
+            <i className="tripor-information" style={{ color: 'white' }} />
           </a>
           {renderTools()}
         </div>
@@ -49,6 +53,10 @@ class ToolBar extends Component {
             onClick={() => drawStore.changeZoom('zoomIn')}
           />
         </div>
+        <InfoModal
+          isOpen={drawStore.isInfoModalOpen}
+          close={() => { drawStore.isInfoModalOpen = false; }}
+        />
       </div>
     );
   }

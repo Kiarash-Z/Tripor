@@ -4,6 +4,11 @@ $action-blue: #60C1F9;
 @mixin get-list($bar, $prop) {
   $prop: nth($d, $bar);
 }
+
+.modal__details {
+  display: flex;
+}
+
 .list-item {
   list-style-type: none;
   padding: 0.5rem;

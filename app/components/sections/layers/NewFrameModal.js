@@ -4,15 +4,11 @@ import { Button, Input } from '../../common';
 
 const NewFrameModal = ({
   isOpen,
-  onMount,
-  onClose,
   devices,
   onSelectDevice,
   activeDevice,
   changeDimensions,
   createFrame,
-  projectName,
-  updateProjectName,
 }) => {
   const renderDevices = () => {
     return devices.map(device => (
@@ -29,12 +25,10 @@ const NewFrameModal = ({
   return (
     <Modal
       isOpen={isOpen}
-      onAfterOpen={onMount}
-      onRequestClose={onClose}
-      contentLabel="Example Modal"
+      contentLabel="New frame Modal"
     >
       <h4 style={{ fontWeight: '100' }}>Create a new frame</h4>
-      <div className="new-frame__details mt-6">
+      <div className="modal__details mt-6">
         <div className="mr-7">
           <h5 className="mb-3">Predefined</h5>
           <ul>
@@ -66,7 +60,7 @@ const NewFrameModal = ({
       </div>
     </Modal>
   );
-}
+};
 
 
 export default NewFrameModal;

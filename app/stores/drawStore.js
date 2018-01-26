@@ -6,6 +6,7 @@ class DrawStore {
   @observable tools = JSON.parse(JSON.stringify(tools));
   @observable canvas = null;
   @observable projectName = 'Untitled';
+  @observable isInfoModalOpen = false;
 
   @action.bound
   setActiveTool(id) {

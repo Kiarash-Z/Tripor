@@ -36,14 +36,11 @@ class Layers extends Component {
         />
         <NewFrameModal
           isOpen={layersStore.isNewFrameModalOpen}
-          onCLose={() => { layersStore.isNewFrameModalOpen = false; }}
           devices={layersStore.predefinedDevices}
           onSelectDevice={layersStore.selectDevice}
           activeDevice={layersStore.activeDevice}
           changeDimensions={layersStore.changeDeviceDimensions}
           createFrame={layersStore.createFrame}
-          projectName={drawStore.projectName}
-          updateProjectName={value => { drawStore.projectName = value; }}
         />
       </aside>
     );
