@@ -28,13 +28,6 @@ class DrawStore {
     this.canvas = canvas;
   }
 
-  @action
-  setZoom(frameWidth, frameHeight) {
-    const { width, height } = this.canvas;
-    const zoomLevel = (width * height) / (frameWidth * frameHeight) / 2;
-    this.canvas.zoomToPoint(this.centerPoint, zoomLevel);
-  }
-
   @action.bound
   initializeFrame({ width, height }) {
     this.initializeCanvas();
@@ -51,6 +44,35 @@ class DrawStore {
       obj.center();
     });
   }
+
+  @action.bound
+  startPan(e) {
+    if (!(this.activeTool.name === 'hand')) return;
+    const canvasWrapper = document.querySelector('#canvas-wrapper');
+    const { screenX, screenY } = e;
+    const pan = event => {
+      const { screenX: x, screenY: y } = event;
+      this.canvas.selection = false;
+      this.canvas.relativePan({
+        x: (x - screenX) / 10,
+        y: (y - screenY) / 10,
+      });
+    };
+    const stopPan = () => {
+      canvasWrapper.removeEventListener('mousemove', pan);
+      this.canvas.selection = true;
+    };
+    canvasWrapper.addEventListener('mousemove', pan);
+    canvasWrapper.addEventListener('mouseup', stopPan);
+  }
+
+  @action
+  setZoom(frameWidth, frameHeight) {
+    const { width, height } = this.canvas;
+    const zoomLevel = (width * height) / (frameWidth * frameHeight) / 2;
+    this.canvas.zoomToPoint(this.centerPoint, zoomLevel);
+  }
+
 
   @action
   changeZoom(method) {
@@ -70,6 +92,21 @@ class DrawStore {
     this.canvas = cloned;
   }
 
+  @action.bound
+  handleShortcutKeys({ code }) {
+    const setActiveTool = name => {
+      this.tools = this.tools.map(tool => {
+        tool.isSelected = tool.name === name;
+        return tool;
+      });
+    };
+
+    if ((code === 'Space') || (code === 'KeyH')) setActiveTool('hand');
+    else if (code === 'KeyV') setActiveTool('move');
+    else if (code === 'KeyM') setActiveTool('shape');
+    else if (code === 'KeyF') setActiveTool('frame');
+  }
+
   @computed get
   centerPoint() {
     const { width, height } = this.canvas;
@@ -80,6 +117,11 @@ class DrawStore {
   zoomPercentage() {
     if (!this.canvas) return '100%';
     return `${(this.canvas.getZoom() * 100).toFixed(2)}%`;
+  }
+
+  @computed get
+  activeTool() {
+    return this.tools.find(tool => tool.isSelected) || {};
   }
 
 }

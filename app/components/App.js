@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Modal from 'react-modal';
+import { inject, observer } from 'mobx-react';
+
 import ToolBar from './sections/toolbar/ToolBar';
 import Layers from './sections/layers/Layers';
 import Properties from './sections/properties/Properties';
@@ -23,17 +25,27 @@ const contentStyles = {
 Modal.setAppElement(document.body);
 Modal.defaultStyles.content = contentStyles;
 
-const App = () => {
-  return (
-    <div className="container">
-      <ToolBar />
-      <div className="sections-container">
-        <Layers />
-        <canvas id="canvas" />
-        <Properties />
+@inject('drawStore')
+@observer
+class App extends Component {
+  componentDidMount() {
+    window.addEventListener('keypress', this.props.drawStore.handleShortcutKeys);
+  }
+  render() {
+    const { drawStore } = this.props;
+    return (
+      <div className="container">
+        <ToolBar />
+        <div className="sections-container">
+          <Layers />
+          <div id="canvas-wrapper" style={{ flex: 1 }} onMouseDown={drawStore.startPan}>
+            <canvas id="canvas" />
+          </div>
+          <Properties />
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default App;
