@@ -67,7 +67,7 @@ class ViewStore {
     let zoomLevel = (Number(this.zoomPercentage.slice(0, -1)) / 100) + value;
     if (zoomLevel <= 0.01) zoomLevel = 0.01;
     if (zoomLevel >= 5) zoomLevel = 5;
-    drawStore.canvas.zoomToPoint(drawStore.centerPoint, zoomLevel);
+    drawStore.canvas.zoomToPoint(this.centerPoint, zoomLevel);
     drawStore.updateCanvas();
   }
 
