@@ -21,6 +21,7 @@ class ViewStore {
     else if (code === 'KeyV') setActiveTool('move');
     else if (code === 'KeyR') setActiveTool('shape');
     else if (code === 'KeyF') setActiveTool('frame');
+    else if (code === 'Backspace') drawStore.canvas.getActiveObject().remove();
   }
 
   @action.bound

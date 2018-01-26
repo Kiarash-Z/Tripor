@@ -29,7 +29,7 @@ Modal.defaultStyles.content = contentStyles;
 @observer
 class App extends Component {
   componentDidMount() {
-    window.addEventListener('keypress', this.props.viewStore.handleShortcutKeys);
+    window.addEventListener('keydown', this.props.viewStore.handleShortcutKeys);
   }
   render() {
     return (

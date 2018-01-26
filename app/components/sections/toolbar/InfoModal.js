@@ -46,6 +46,13 @@ const InfoModal = ({ isOpen, close }) => (
               <code className="key-highlight">H</code>
             </div>
           </li>
+          <li className="list-item mb-2 font-small" style={{ paddingLeft: 0 }}>
+            <div>
+              <i className="tripor-eraser font-medium modal__icon" />
+              <span className="mr-5 ml-1">Delete an object</span>
+            </div>
+            <code className="key-highlight">Backspace</code>
+          </li>
         </ul>
       </div>
     </div>
