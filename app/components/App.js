@@ -25,20 +25,20 @@ const contentStyles = {
 Modal.setAppElement(document.body);
 Modal.defaultStyles.content = contentStyles;
 
-@inject('drawStore')
+@inject('viewStore')
 @observer
 class App extends Component {
   componentDidMount() {
-    window.addEventListener('keypress', this.props.drawStore.handleShortcutKeys);
+    window.addEventListener('keypress', this.props.viewStore.handleShortcutKeys);
   }
   render() {
-    const { drawStore } = this.props;
+    const { viewStore } = this.props;
     return (
       <div className="container">
         <ToolBar />
         <div className="sections-container">
           <Layers />
-          <div id="canvas-wrapper" style={{ flex: 1 }} onMouseDown={drawStore.handleMouseDown}>
+          <div id="canvas-wrapper" style={{ flex: 1 }} onMouseDown={viewStore.handleMouseDown}>
             <canvas id="canvas" />
           </div>
           <Properties />

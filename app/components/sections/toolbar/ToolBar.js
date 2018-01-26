@@ -4,16 +4,16 @@ import { inject, observer } from 'mobx-react';
 import { Input } from '../../common';
 import InfoModal from './InfoModal';
 
-@inject('drawStore')
+@inject('viewStore')
 @observer
 class ToolBar extends Component {
   render() {
-    const { drawStore } = this.props;
-    const renderTools = () => drawStore.tools.map(tool => (
+    const { viewStore } = this.props;
+    const renderTools = () => viewStore.tools.map(tool => (
       <a
         className={`${tool.isSelected ? 'active' : ' '} toolbar__tool pointer`}
         key={tool.id}
-        onClick={() => drawStore.setActiveTool(tool.id)}
+        onClick={() => viewStore.setActiveTool(tool.id)}
         style={tool.size ? { fontSize: tool.size } : { }}
       >
         <i className={tool.icon} style={{ color: 'white' }} />
@@ -25,7 +25,7 @@ class ToolBar extends Component {
         <div style={{ display: 'flex', gridColumn: 1 }}>
           <a
             className="p-3 pointer toolbar__tool"
-            onClick={() => { drawStore.isInfoModalOpen = true; }}
+            onClick={() => { viewStore.isInfoModalOpen = true; }}
           >
             <i className="tripor-information" style={{ color: 'white' }} />
           </a>
@@ -34,8 +34,8 @@ class ToolBar extends Component {
         <div className="toolbar__title-container padded-item">
           <Input
             className="toolbar__title font-small"
-            value={drawStore.projectName}
-            onChange={value => { drawStore.projectName = value; }}
+            value={viewStore.projectName}
+            onChange={value => { viewStore.projectName = value; }}
             onClick={({ target }) => target.setSelectionRange(0, target.value.length)}
           />
           <i className="tripor-edit toolbar__title-icon" />
@@ -44,18 +44,18 @@ class ToolBar extends Component {
           <i
             className="tripor-minus p-2 font-small"
             style={{ color: 'white' }}
-            onClick={() => drawStore.changeZoom('zoomOut')}
+            onClick={() => viewStore.changeZoom('zoomOut')}
           />
-          <span style={{ color: 'white' }}>{drawStore.zoomPercentage}</span>
+          <span style={{ color: 'white' }}>{viewStore.zoomPercentage}</span>
           <i
             className="tripor-plus p-2 font-small"
             style={{ color: 'white' }}
-            onClick={() => drawStore.changeZoom('zoomIn')}
+            onClick={() => viewStore.changeZoom('zoomIn')}
           />
         </div>
         <InfoModal
-          isOpen={drawStore.isInfoModalOpen}
-          close={() => { drawStore.isInfoModalOpen = false; }}
+          isOpen={viewStore.isInfoModalOpen}
+          close={() => { viewStore.isInfoModalOpen = false; }}
         />
       </div>
     );

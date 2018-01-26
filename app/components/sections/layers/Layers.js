@@ -4,14 +4,14 @@ import Tree from 'react-ui-tree';
 
 import NewFrameModal from './NewFrameModal';
 
-@inject('layersStore', 'drawStore')
+@inject('layersStore')
 @observer
 class Layers extends Component {
   componentDidMount() {
     this.props.layersStore.getLayers();
   }
   render() {
-    const { layersStore, drawStore } = this.props;
+    const { layersStore } = this.props;
     const renderItem = item => {
       if (item.isFirst) return (
         <div className="mb-4">
