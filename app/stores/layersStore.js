@@ -39,7 +39,7 @@ class LayersStore {
     const frame = {
       width,
       height,
-      module: 'Frame 1',
+      module: 'Frame',
       leaf: true,
       iconType: 'tripor-frame',
     };

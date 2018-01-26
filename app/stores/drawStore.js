@@ -40,17 +40,40 @@ class DrawStore {
       fill: 'white',
     });
     this.setZoom(width, height);
+    frame.isFrame = true;
     this.canvas.add(frame);
     this.canvas.forEachObject(obj => {
       obj.center();
+      obj.setCoords();
     });
   }
 
   @action.bound
+  handleMouseDown(e) {
+    switch (this.activeTool.name) {
+      case 'hand':
+        this.lockAllObjects();
+        this.startPan(e);
+        break;
+      case 'move':
+        this.releaseAllObjects();
+        break;
+      case 'frame':
+        this.releaseAllObjects();
+        this.drawRect(e, true);
+        break;
+      case 'shape':
+        this.releaseAllObjects();
+        this.drawRect(e);
+        break;
+    }
+  }
+
+  @action.bound
   startPan(e) {
-    if (!(this.activeTool.name === 'hand')) return;
     const canvasWrapper = document.querySelector('#canvas-wrapper');
     const { screenX, screenY } = e;
+
     const pan = event => {
       const { screenX: x, screenY: y } = event;
       this.canvas.selection = false;
@@ -63,8 +86,67 @@ class DrawStore {
       canvasWrapper.removeEventListener('mousemove', pan);
       this.canvas.selection = true;
     };
+
     canvasWrapper.addEventListener('mousemove', pan);
     canvasWrapper.addEventListener('mouseup', stopPan);
+  }
+
+  drawRect(e, isFrame) {
+    const activeGroup = this.canvas.getActiveGroup();
+    if (activeGroup) return;
+    const canvasWrapper = document.querySelector('#canvas-wrapper');
+    const { x, y } = this.canvas.getPointer(e);
+    const originX = x;
+    const originY = y;
+    const rect = new fabric.Rect({
+      isFrame,
+      left: originX,
+      top: originY,
+      width: 0,
+      height: 0,
+      fill: isFrame ? 'white' : '#a29bfe',
+    });
+    this.canvas.add(rect);
+    const handleMove = event => {
+      const pointer = this.canvas.getPointer(event);
+
+      if (originX > pointer.x) {
+        rect.set({ left: pointer.x });
+      }
+      if (originY > pointer.y) {
+        rect.set({ top: pointer.y });
+      }
+
+      rect.set({ width: Math.abs(originX - pointer.x) });
+      rect.set({ height: Math.abs(originY - pointer.y) });
+
+      this.canvas.renderAll();
+    };
+
+    const stopDraw = () => {
+      canvasWrapper.removeEventListener('mousemove', handleMove);
+    };
+
+    canvasWrapper.addEventListener('mousemove', handleMove);
+    canvasWrapper.addEventListener('mouseup', stopDraw);
+  }
+
+
+  @action lockAllObjects() {
+    this.canvas.forEachObject(obj => {
+      obj.hasControls = false;
+      obj.lockMovementX = true;
+      obj.lockMovementY = true;
+    });
+  }
+
+  @action releaseAllObjects() {
+    this.canvas.forEachObject(obj => {
+      obj.hasControls = true;
+      obj.lockMovementX = false;
+      obj.lockMovementY = false;
+      obj.setCoords();
+    });
   }
 
   @action
@@ -104,7 +186,7 @@ class DrawStore {
 
     if ((code === 'Space') || (code === 'KeyH')) setActiveTool('hand');
     else if (code === 'KeyV') setActiveTool('move');
-    else if (code === 'KeyM') setActiveTool('shape');
+    else if (code === 'KeyR') setActiveTool('shape');
     else if (code === 'KeyF') setActiveTool('frame');
   }
 

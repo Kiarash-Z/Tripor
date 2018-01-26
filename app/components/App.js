@@ -38,7 +38,7 @@ class App extends Component {
         <ToolBar />
         <div className="sections-container">
           <Layers />
-          <div id="canvas-wrapper" style={{ flex: 1 }} onMouseDown={drawStore.startPan}>
+          <div id="canvas-wrapper" style={{ flex: 1 }} onMouseDown={drawStore.handleMouseDown}>
             <canvas id="canvas" />
           </div>
           <Properties />

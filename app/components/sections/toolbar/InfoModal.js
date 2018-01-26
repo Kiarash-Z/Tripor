@@ -32,9 +32,9 @@ const InfoModal = ({ isOpen, close }) => (
           <li className="list-item mb-2 font-small" style={{ paddingLeft: 0 }}>
             <div>
               <i className="tripor-square font-medium modal__icon" />
-              <span className="mr-5 ml-1">Marquee Tool</span>
+              <span className="mr-5 ml-1">Rectangle Tool</span>
             </div>
-            <code className="key-highlight">M</code>
+            <code className="key-highlight">R</code>
           </li>
           <li className="list-item mb-2 font-small" style={{ paddingLeft: 0 }}>
             <div>
