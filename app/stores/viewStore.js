@@ -35,18 +35,18 @@ class ViewStore {
   handleMouseDown(e) {
     switch (this.activeTool.name) {
       case 'hand':
-        drawStore.lockAllObjects();
+        drawStore.toggleLockAllObjects(true);
         drawStore.startPan(e);
         break;
       case 'move':
-        drawStore.releaseAllObjects();
+        drawStore.toggleLockAllObjects(false);
         break;
       case 'frame':
-        drawStore.releaseAllObjects();
+        drawStore.toggleLockAllObjects(false);
         drawStore.drawRect(e, true);
         break;
       case 'shape':
-        drawStore.releaseAllObjects();
+        drawStore.toggleLockAllObjects(false);
         drawStore.drawRect(e);
         break;
     }
@@ -54,7 +54,6 @@ class ViewStore {
 
   @action
   setZoom(frameWidth, frameHeight) {
-    console.log(drawStore.canvas);
     const { width, height } = drawStore.canvas;
     const zoomLevel = (width * height) / (frameWidth * frameHeight) / 2;
     drawStore.canvas.zoomToPoint(this.centerPoint, zoomLevel);

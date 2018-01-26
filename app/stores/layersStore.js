@@ -44,6 +44,7 @@ class LayersStore {
       iconType: 'tripor-frame',
     };
     drawStore.initializeFrame(frame);
+    this.addCustomListeners();
     this.treeData = {
       ...this.treeData,
       children: [
@@ -52,6 +53,14 @@ class LayersStore {
       ],
     };
     this.isNewFrameModalOpen = false;
+  }
+
+  @action
+  addCustomListeners() {
+    // drawStore.canvas.on('object:added', () => {
+    //   const frames = drawStore.canvas.getObjects();
+    //   const coords = frames[0].getCoords();
+    // });
   }
 
   @action.bound
@@ -70,5 +79,7 @@ class LayersStore {
   }
 }
 
+
 const layersStore = new LayersStore();
+
 export { layersStore };

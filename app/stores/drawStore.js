@@ -7,7 +7,9 @@ class DrawStore {
 
   @action
   initializeCanvas() {
-    const canvas = new fabric.Canvas('canvas');
+    const canvas = new fabric.Canvas('canvas', {
+      preserveObjectStacking: true,
+    });
     const { offsetWidth: layersWidth } = document.querySelector('.layers');
     const { offsetWidth: propertiesWidth } = document.querySelector('.properties');
     const width = document.body.offsetWidth - (layersWidth + propertiesWidth);
@@ -62,6 +64,7 @@ class DrawStore {
   drawRect(e, isFrame) {
     const activeGroup = this.canvas.getActiveGroup();
     if (activeGroup) return;
+    if (!isFrame) this.toggleFramesControls(false);
     const canvasWrapper = document.querySelector('#canvas-wrapper');
     const { x, y } = this.canvas.getPointer(e);
     const originX = x;
@@ -72,8 +75,10 @@ class DrawStore {
       top: originY,
       width: 0,
       height: 0,
-      fill: isFrame ? 'white' : '#a29bfe',
+      fill: isFrame ? 'white' : '#c4c4c4',
     });
+    const parentFrame = isFrame ? false : this.evaluateObjectFrame(rect, { originX, originY });
+    rect.parentFrame = parentFrame;
     this.canvas.add(rect);
     const handleMove = event => {
       const pointer = this.canvas.getPointer(event);
@@ -93,27 +98,51 @@ class DrawStore {
 
     const stopDraw = () => {
       canvasWrapper.removeEventListener('mousemove', handleMove);
+      this.toggleFramesControls(true);
     };
 
     canvasWrapper.addEventListener('mousemove', handleMove);
     canvasWrapper.addEventListener('mouseup', stopDraw);
   }
 
+  @action
+  evaluateObjectFrame(obj, { originX, originY }) {
+    // const coords = obj.getCoords();
+    // console.log('ob coords', obj.top);
+    // const frames = this.canvas.forEachObject(object => {
+    //   if (object.isFrame) {
 
-  @action lockAllObjects() {
+    //     console.log('frame cooords', object.getCoords());
+    //     const xs = object.getCoords().map(coord => coord.x);
+    //     const ys = object.getCoords().map(coord => coord.y);
+    //     const maxX = Math.max(...xs);
+    //     const minX = Math.min(...xs);
+    //     const maxY = Math.max(...ys);
+    //     const minY = Math.min(...ys);
+    //     const isInside = (originX <= maxX) && (originX >= minX) && (originY <= maxY) && (originY >= minY);
+    //     console.log(isInside);
+    //   }
+    // });
+  }
+
+  @action toggleLockAllObjects(isLocked) {
     this.canvas.forEachObject(obj => {
-      obj.hasControls = false;
-      obj.lockMovementX = true;
-      obj.lockMovementY = true;
+      obj.hasControls = !isLocked;
+      obj.lockMovementX = isLocked;
+      obj.lockMovementY = isLocked;
+      obj.setCoords();
     });
   }
 
-  @action releaseAllObjects() {
+  @action
+  toggleFramesControls(bool) {
     this.canvas.forEachObject(obj => {
-      obj.hasControls = true;
-      obj.lockMovementX = false;
-      obj.lockMovementY = false;
-      obj.setCoords();
+      if (obj.isFrame) {
+        obj.hasControls = bool;
+        obj.lockMovementX = !bool;
+        obj.lockMovementY = !bool;
+        obj.setCoords();
+      }
     });
   }
 
@@ -124,6 +153,7 @@ class DrawStore {
     this.canvas = null;
     this.canvas = cloned;
   }
+
 }
 
 const drawStore = new DrawStore();

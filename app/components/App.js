@@ -32,13 +32,12 @@ class App extends Component {
     window.addEventListener('keypress', this.props.viewStore.handleShortcutKeys);
   }
   render() {
-    const { viewStore } = this.props;
     return (
       <div className="container">
         <ToolBar />
         <div className="sections-container">
           <Layers />
-          <div id="canvas-wrapper" style={{ flex: 1 }} onMouseDown={viewStore.handleMouseDown}>
+          <div id="canvas-wrapper" style={{ flex: 1 }} onMouseDown={this.props.viewStore.handleMouseDown}>
             <canvas id="canvas" />
           </div>
           <Properties />
