@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Input = ({
   type,
@@ -8,6 +9,9 @@ const Input = ({
   placeholder,
   style,
   onClick,
+  onKeyDown,
+  onFocus,
+  onBlur,
 }) => (
   <input
     type={type}
@@ -17,6 +21,9 @@ const Input = ({
     onChange={({ target }) => onChange(target.value)}
     onClick={onClick}
     style={style}
+    onFocus={onFocus}
+    onBlur={onBlur}
+    onKeyDown={onKeyDown}
   />
 );
 

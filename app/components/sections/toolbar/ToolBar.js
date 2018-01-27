@@ -13,7 +13,7 @@ class ToolBar extends Component {
       <a
         className={`${tool.isSelected ? 'active' : ' '} toolbar__tool pointer`}
         key={tool.id}
-        onClick={() => viewStore.setActiveTool(tool.id)}
+        onClick={() => viewStore.setActiveTool('id', tool.id)}
         style={tool.size ? { fontSize: tool.size } : { }}
       >
         <i className={tool.icon} style={{ color: 'white' }} />

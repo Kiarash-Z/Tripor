@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
 
 import { viewStore } from './';
+import { frameDefaultBackground, shapeDefaultBackground, canvasDefaultBackground } from '../constants/drawConstants';
 
 class DrawStore {
   @observable canvas = null;
@@ -9,6 +10,7 @@ class DrawStore {
   initializeCanvas() {
     const canvas = new fabric.Canvas('canvas', {
       preserveObjectStacking: true,
+      backgroundColor: canvasDefaultBackground,
     });
     const { offsetWidth: layersWidth } = document.querySelector('.layers');
     const { offsetWidth: propertiesWidth } = document.querySelector('.properties');
@@ -63,7 +65,8 @@ class DrawStore {
 
   drawRect(e, isFrame) {
     const activeGroup = this.canvas.getActiveGroup();
-    if (activeGroup) return;
+    const activeObject = this.canvas.getActiveObject();
+    if (activeGroup || (activeObject ? activeObject.isFrame === isFrame : false)) return;
     if (!isFrame) this.toggleFramesControls(false);
     const canvasWrapper = document.querySelector('#canvas-wrapper');
     const { x, y } = this.canvas.getPointer(e);
@@ -75,7 +78,7 @@ class DrawStore {
       top: originY,
       width: 0,
       height: 0,
-      fill: isFrame ? 'white' : '#c4c4c4',
+      fill: isFrame ? frameDefaultBackground : shapeDefaultBackground,
     });
     const parentFrame = isFrame ? false : this.evaluateObjectFrame(rect, { originX, originY });
     rect.parentFrame = parentFrame;

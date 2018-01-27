@@ -1,33 +1,43 @@
 import { observable, action, computed } from 'mobx';
 
 import { drawStore } from './';
-import { tools } from '../constants/drawConstants';
+import { tools, projectDefaultName, canvasDefaultBackground } from '../constants/drawConstants';
 
 class ViewStore {
-  @observable projectName = 'Untitled';
+  @observable projectName = projectDefaultName;
   @observable isInfoModalOpen = false;
   @observable tools = JSON.parse(JSON.stringify(tools));
+  @observable isTyping = false;
+  @observable canvasBackground = canvasDefaultBackground;
+  @observable isColorPickerOpen = false;
 
   @action.bound
   handleShortcutKeys({ code }) {
-    const setActiveTool = name => {
-      this.tools = this.tools.map(tool => {
-        tool.isSelected = tool.name === name;
-        return tool;
-      });
-    };
-
-    if ((code === 'Space') || (code === 'KeyH')) setActiveTool('hand');
-    else if (code === 'KeyV') setActiveTool('move');
-    else if (code === 'KeyR') setActiveTool('shape');
-    else if (code === 'KeyF') setActiveTool('frame');
-    else if (code === 'Backspace') drawStore.canvas.getActiveObject().remove();
+    if (this.isTyping) return;
+    switch (code) {
+      case 'Space':
+      case 'KeyH':
+        this.setActiveTool('name', 'hand');
+        break;
+      case 'KeyV':
+        this.setActiveTool('name', 'move')
+        break;
+      case 'KeyR':
+        this.setActiveTool('name', 'shape');
+        break;
+      case 'KeyF':
+        this.setActiveTool('name', 'frame');
+        break;
+      case 'Backspace':
+        drawStore.canvas.getActiveObject().remove();
+        break;
+    }
   }
 
   @action.bound
-  setActiveTool(id) {
+  setActiveTool(prop, value) {
     this.tools = this.tools.map(tool => {
-      tool.isSelected = tool.id === id;
+      tool.isSelected = tool[prop] === value;
       return tool;
     });
   }
@@ -69,6 +79,25 @@ class ViewStore {
     if (zoomLevel >= 5) zoomLevel = 5;
     drawStore.canvas.zoomToPoint(this.centerPoint, zoomLevel);
     drawStore.updateCanvas();
+  }
+
+  @action.bound
+  handleInputChange({ target, which }) {
+    if (which !== 13) return;
+    const { value } = target;
+    const hexReg = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/;
+    if (value.match(hexReg)) {
+      this.updateCanvasBackground(value);
+    }
+  }
+
+  @action.bound
+  updateCanvasBackground(value) {
+    this.canvasBackground = value;
+    drawStore.canvas.setBackgroundColor(
+      this.canvasBackground,
+      drawStore.canvas.renderAll.bind(drawStore.canvas),
+    );
   }
 
   @computed get
