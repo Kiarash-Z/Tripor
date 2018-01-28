@@ -8,8 +8,9 @@ class ViewStore {
   @observable isInfoModalOpen = false;
   @observable tools = JSON.parse(JSON.stringify(tools));
   @observable isTyping = false;
-  @observable canvasBackground = canvasDefaultBackground;
+  @observable activeBackground = canvasDefaultBackground;
   @observable isColorPickerOpen = false;
+  @observable isCanvasSelected = true;
 
   @action.bound
   handleShortcutKeys({ code }) {
@@ -29,7 +30,7 @@ class ViewStore {
         this.setActiveTool('name', 'frame');
         break;
       case 'Backspace':
-        drawStore.canvas.getActiveObject().remove();
+        this,activeObject.remove();
         break;
     }
   }
@@ -66,7 +67,9 @@ class ViewStore {
   @action
   setZoom(frameWidth, frameHeight) {
     const { width, height } = drawStore.canvas;
-    const zoomLevel = (width * height) / (frameWidth * frameHeight) / 2;
+    let zoomLevel = (width / frameWidth) * (height / frameHeight) * 0.3;
+    if (zoomLevel > 0.8) zoomLevel *= 0.5;
+    if (zoomLevel < 0.3) zoomLevel *= 1.5;
     drawStore.canvas.zoomToPoint(this.centerPoint, zoomLevel);
   }
 
@@ -82,22 +85,52 @@ class ViewStore {
   }
 
   @action.bound
-  handleInputChange({ target, which }) {
+  handleColorApply({ target, which }) {
     if (which !== 13) return;
     const { value } = target;
     const hexReg = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/;
     if (value.match(hexReg)) {
-      this.updateCanvasBackground(value);
+      this.updateBackground(value);
     }
   }
 
   @action.bound
-  updateCanvasBackground(value) {
-    this.canvasBackground = value;
+  updateBackground(value) {
+    this.activeBackground = value;
+    if (this.isCanvasSelected) this.updateCanvasBackground();
+    else this.updateObjectBackground();
+  }
+
+  @action
+  updateCanvasBackground() {
     drawStore.canvas.setBackgroundColor(
-      this.canvasBackground,
+      this.activeBackground,
       drawStore.canvas.renderAll.bind(drawStore.canvas),
     );
+  }
+
+  @action
+  updateObjectBackground() {
+    this.activeObject.set('fill', this.activeBackground);
+    drawStore.canvas.renderAll();
+  }
+
+  @action.bound
+  addCustomListeners() {
+    drawStore.canvas.on('object:selected', this.handleObjectSelect);
+    drawStore.canvas.on('selection:cleared', this.handleObjectsDeselect);
+  }
+
+  @action.bound
+  handleObjectSelect() {
+    this.isCanvasSelected = false;
+    this.activeBackground = `#${new fabric.Color(this.activeObject.fill).toHex()}`;
+  }
+
+  @action.bound
+  handleObjectsDeselect() {
+    this.isCanvasSelected = true;
+    this.activeBackground = drawStore.canvas.backgroundColor;
   }
 
   @computed get
@@ -115,6 +148,11 @@ class ViewStore {
   centerPoint() {
     const { width, height } = drawStore.canvas;
     return new fabric.Point(width / 2, height / 2);
+  }
+
+  @computed get
+  activeObject() {
+    return drawStore.canvas.getActiveObject();
   }
 }
 

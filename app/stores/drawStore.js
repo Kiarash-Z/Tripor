@@ -156,7 +156,6 @@ class DrawStore {
     this.canvas = null;
     this.canvas = cloned;
   }
-
 }
 
 const drawStore = new DrawStore();

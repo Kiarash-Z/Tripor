@@ -23,8 +23,8 @@ const tools = [
   },
 ];
 
-const frameDefaultBackground = 'white';
-const shapeDefaultBackground = '#c4c4c4';
+const frameDefaultBackground = '#FFFFFF';
+const shapeDefaultBackground = '#C4C4C4';
 const canvasDefaultBackground = '#EDEDED';
 const projectDefaultName = 'Untitled';
 

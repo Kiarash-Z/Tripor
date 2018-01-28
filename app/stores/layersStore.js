@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'mobx';
-import { drawStore } from './';
+import { drawStore, viewStore } from './';
 import { predefinedDevices } from '../constants/layersConstants';
 
 class LayersStore {
@@ -44,7 +44,7 @@ class LayersStore {
       iconType: 'tripor-frame',
     };
     drawStore.initializeFrame(frame);
-    this.addCustomListeners();
+    viewStore.addCustomListeners();
     this.treeData = {
       ...this.treeData,
       children: [

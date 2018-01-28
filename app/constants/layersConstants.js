@@ -8,10 +8,10 @@ const predefinedDevices = [
     id: 0,
   },
   {
-    name: 'IPhone 8',
+    name: 'IPhone X',
     icon: 'tripor-mobile',
-    width: 800,
-    height: 1400,
+    width: 375,
+    height: 812,
     isSelected: false,
     id: 1,
   },
