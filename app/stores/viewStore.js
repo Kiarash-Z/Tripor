@@ -9,6 +9,7 @@ class ViewStore {
   @observable tools = JSON.parse(JSON.stringify(tools));
   @observable isTyping = false;
   @observable activeBackground = canvasDefaultBackground;
+  @observable inputColorValue = canvasDefaultBackground;
   @observable isColorPickerOpen = false;
   @observable isCanvasSelected = true;
 
@@ -30,7 +31,7 @@ class ViewStore {
         this.setActiveTool('name', 'frame');
         break;
       case 'Backspace':
-        this,activeObject.remove();
+        drawStore.canvas.getActiveObject().remove();
         break;
     }
   }
@@ -97,6 +98,7 @@ class ViewStore {
   @action.bound
   updateBackground(value) {
     this.activeBackground = value;
+    this.inputColorValue = value;
     if (this.isCanvasSelected) this.updateCanvasBackground();
     else this.updateObjectBackground();
   }
@@ -124,13 +126,16 @@ class ViewStore {
   @action.bound
   handleObjectSelect() {
     this.isCanvasSelected = false;
-    this.activeBackground = `#${new fabric.Color(this.activeObject.fill).toHex()}`;
+    const hexaDecimal = `#${new fabric.Color(this.activeObject.fill).toHex()}`
+    this.activeBackground = hexaDecimal;
+    this.inputColorValue = hexaDecimal;
   }
 
   @action.bound
   handleObjectsDeselect() {
     this.isCanvasSelected = true;
     this.activeBackground = drawStore.canvas.backgroundColor;
+    this.inputColorValue = drawStore.canvas.backgroundColor;
   }
 
   @computed get

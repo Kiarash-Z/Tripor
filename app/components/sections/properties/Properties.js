@@ -8,7 +8,6 @@ import ColorPicker from './ColorPicker';
 class Properties extends Component {
   render() {
     const { viewStore } = this.props;
-    console.log(viewStore.activeBackground);
     return (
       <aside className="properties">
         <h1 className="properties__title pb-2 font-small mb-4">Properties</h1>
@@ -18,9 +17,10 @@ class Properties extends Component {
             isOpen={viewStore.isColorPickerOpen}
             togglePicker={() => { viewStore.isColorPickerOpen = !viewStore.isColorPickerOpen; }}
             color={viewStore.activeBackground.toUpperCase()}
+            inputColorValue={viewStore.inputColorValue.toUpperCase()}
             handleInputKeyDown={viewStore.handleColorApply}
             handleFocusToggle={() => { viewStore.isTyping = !viewStore.isTyping; }}
-            handleInputChange={value => { viewStore.activeBackground = value.toUpperCase(); }}
+            handleInputChange={value => { viewStore.inputColorValue = value.toUpperCase(); }}
             updateObjectColor={({ hex }) => viewStore.updateBackground(hex)}
           />
         </div>

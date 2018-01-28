@@ -7,6 +7,7 @@ const ColorPicker = ({
   isOpen,
   togglePicker,
   color,
+  inputColorValue,
   handleInputKeyDown,
   handleInputChange,
   handleFocusToggle,
@@ -27,7 +28,7 @@ const ColorPicker = ({
     </div> : null }
     <Input
       className="properties__border ml-1"
-      value={color}
+      value={inputColorValue}
       onKeyDown={handleInputKeyDown}
       onChange={handleInputChange}
       onFocus={handleFocusToggle}
