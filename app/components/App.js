@@ -25,11 +25,13 @@ const contentStyles = {
 Modal.setAppElement(document.body);
 Modal.defaultStyles.content = contentStyles;
 
-@inject('viewStore')
+@inject('viewStore', 'drawStore')
 @observer
 class App extends Component {
   componentDidMount() {
-    window.addEventListener('keydown', this.props.viewStore.handleShortcutKeys);
+    const { viewStore, drawStore } = this.props;
+    window.addEventListener('keydown', viewStore.handleShortcutKeys);
+    window.addEventListener('resize', () => drawStore.resizeCanvas(drawStore.canvas));
   }
   render() {
     return (

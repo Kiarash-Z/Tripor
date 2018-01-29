@@ -12,6 +12,11 @@ class DrawStore {
       preserveObjectStacking: true,
       backgroundColor: canvasDefaultBackground,
     });
+    this.resizeCanvas(canvas);
+  }
+
+  @action.bound
+  resizeCanvas(canvas) {
     const { offsetWidth: layersWidth } = document.querySelector('.layers');
     const { offsetWidth: propertiesWidth } = document.querySelector('.properties');
     const width = document.body.offsetWidth - (layersWidth + propertiesWidth);

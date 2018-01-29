@@ -134,6 +134,7 @@ class ViewStore {
     const hexaDecimal = `#${new fabric.Color(this.activeObject.fill).toHex()}`;
     this.activeBackground = hexaDecimal;
     this.inputColorValue = hexaDecimal;
+    this.activeObject.bringToFront();
     this.updateObjectProperties();
   }
 
