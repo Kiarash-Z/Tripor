@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import ColorPicker from './ColorPicker';
+import ObjectProperties from './ObjectProperties';
 
 @inject('viewStore')
 @observer
@@ -11,6 +12,15 @@ class Properties extends Component {
     return (
       <aside className="properties">
         <h1 className="properties__title pb-2 font-small mb-4">Properties</h1>
+        {!viewStore.isCanvasSelected ?
+          <ObjectProperties
+            properties={viewStore.objectProperties}
+            updateProperty={viewStore.updateObjectProperty}
+            handleFocus={() => { viewStore.isTyping = true; }}
+            handleBlur={() => { viewStore.isTyping = false; }}
+          /> :
+          null
+        }
         <div className="properties__section">
           <h2 style={{ fontWeight: 100 }} className="font-tiny">BACKGROUND</h2>
           <ColorPicker

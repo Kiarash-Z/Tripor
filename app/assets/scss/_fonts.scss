@@ -20,9 +20,14 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 .tripor-information:before {
   content: "\e904";
+}
+.tripor-angle:before {
+  content: "\e912";
+}
+.tripor-eraser:before {
+  content: "\e911";
 }
 .tripor-hand:before {
   content: "\e905";
@@ -71,7 +76,4 @@ i {
 }
 .tripor-mobile:before {
   content: "\e909";
-}
-.tripor-eraser:before {
-  content: "\e911";
 }

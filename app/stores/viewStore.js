@@ -12,6 +12,7 @@ class ViewStore {
   @observable inputColorValue = canvasDefaultBackground;
   @observable isColorPickerOpen = false;
   @observable isCanvasSelected = true;
+  @observable objectProperties = { left: '', top: '', width: '', height: '', angle: '' }
 
   @action.bound
   handleShortcutKeys({ code }) {
@@ -120,15 +121,20 @@ class ViewStore {
   @action.bound
   addCustomListeners() {
     drawStore.canvas.on('object:selected', this.handleObjectSelect);
+    drawStore.canvas.on('object:moving', this.updateObjectProperties);
+    drawStore.canvas.on('object:scaling', this.updateObjectProperties);
+    drawStore.canvas.on('object:rotating', this.updateObjectProperties);
     drawStore.canvas.on('selection:cleared', this.handleObjectsDeselect);
+    // drawStore.canvas.on('object:added', layersStore)
   }
 
   @action.bound
   handleObjectSelect() {
     this.isCanvasSelected = false;
-    const hexaDecimal = `#${new fabric.Color(this.activeObject.fill).toHex()}`
+    const hexaDecimal = `#${new fabric.Color(this.activeObject.fill).toHex()}`;
     this.activeBackground = hexaDecimal;
     this.inputColorValue = hexaDecimal;
+    this.updateObjectProperties();
   }
 
   @action.bound
@@ -136,6 +142,26 @@ class ViewStore {
     this.isCanvasSelected = true;
     this.activeBackground = drawStore.canvas.backgroundColor;
     this.inputColorValue = drawStore.canvas.backgroundColor;
+  }
+
+  @action.bound
+  updateObjectProperty(prop, value) {
+    const numbered = Number(value);
+    this.objectProperties = { ...this.objectProperties, [prop]: numbered };
+    drawStore.canvas.getActiveObject().set(prop, numbered);
+    drawStore.canvas.renderAll();
+  }
+
+  @action.bound
+  updateObjectProperties() {
+    const { left, top, angle } = this.activeObject;
+    this.objectProperties = {
+      left,
+      top,
+      angle,
+      width: this.activeObject.getWidth(),
+      height: this.activeObject.getHeight(),
+    };
   }
 
   @computed get

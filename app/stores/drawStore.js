@@ -16,7 +16,6 @@ class DrawStore {
     const { offsetWidth: propertiesWidth } = document.querySelector('.properties');
     const width = document.body.offsetWidth - (layersWidth + propertiesWidth);
     const height = document.body.offsetHeight;
-
     canvas.setHeight(height);
     canvas.setWidth(width);
     this.canvas = canvas;

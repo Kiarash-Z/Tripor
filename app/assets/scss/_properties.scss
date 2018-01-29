@@ -27,6 +27,15 @@
     padding-bottom: 0.18rem;
     color: #444;
   }
+  .properties__positioner-container {
+    display: flex;
+    flex-wrap: wrap;
+    .properties__positioner-container__item {
+      display: flex;
+      align-items: center;
+      width: calc(50% - 0.65rem);
+    }
+  }
   .properties__color-container {
     display: flex;
     position: relative;

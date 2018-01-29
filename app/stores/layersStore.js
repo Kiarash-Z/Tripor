@@ -55,14 +55,6 @@ class LayersStore {
     this.isNewFrameModalOpen = false;
   }
 
-  @action
-  addCustomListeners() {
-    // drawStore.canvas.on('object:added', () => {
-    //   const frames = drawStore.canvas.getObjects();
-    //   const coords = frames[0].getCoords();
-    // });
-  }
-
   @action.bound
   updateTree(newTree) {
     this.treeData = newTree;

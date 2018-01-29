@@ -6,6 +6,7 @@ const Input = ({
   value,
   onChange,
   className,
+  id,
   placeholder,
   style,
   onClick,
@@ -24,6 +25,7 @@ const Input = ({
     onFocus={onFocus}
     onBlur={onBlur}
     onKeyDown={onKeyDown}
+    id={id}
   />
 );
 
