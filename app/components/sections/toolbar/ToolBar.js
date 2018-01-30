@@ -4,16 +4,16 @@ import { inject, observer } from 'mobx-react';
 import { Input } from '../../common';
 import InfoModal from './InfoModal';
 
-@inject('viewStore')
+@inject('appStore', 'toolsStore', 'viewStore')
 @observer
 class ToolBar extends Component {
   render() {
-    const { viewStore } = this.props;
-    const renderTools = () => viewStore.tools.map(tool => (
+    const { appStore, toolsStore, viewStore } = this.props;
+    const renderTools = () => toolsStore.tools.map(tool => (
       <a
         className={`${tool.isSelected ? 'active' : ' '} toolbar__tool pointer`}
         key={tool.id}
-        onClick={() => viewStore.setActiveTool('id', tool.id)}
+        onClick={() => toolsStore.setActiveTool('id', tool.id)}
         style={tool.size ? { fontSize: tool.size } : { }}
       >
         <i className={tool.icon} style={{ color: 'white' }} />
@@ -25,7 +25,7 @@ class ToolBar extends Component {
         <div style={{ display: 'flex', gridColumn: 1 }}>
           <a
             className="p-3 pointer toolbar__tool"
-            onClick={() => { viewStore.isInfoModalOpen = true; }}
+            onClick={() => { appStore.isInfoModalOpen = true; }}
           >
             <i className="tripor-information" style={{ color: 'white' }} />
           </a>
@@ -34,8 +34,8 @@ class ToolBar extends Component {
         <div className="toolbar__title-container padded-item">
           <Input
             className="toolbar__title font-small"
-            value={viewStore.projectName}
-            onChange={value => { viewStore.projectName = value; }}
+            value={appStore.projectName}
+            onChange={value => { appStore.projectName = value; }}
             onClick={({ target }) => target.setSelectionRange(0, target.value.length)}
           />
           <i className="tripor-edit toolbar__title-icon" />
@@ -54,8 +54,8 @@ class ToolBar extends Component {
           />
         </div>
         <InfoModal
-          isOpen={viewStore.isInfoModalOpen}
-          close={() => { viewStore.isInfoModalOpen = false; }}
+          isOpen={appStore.isInfoModalOpen}
+          close={() => { appStore.isInfoModalOpen = false; }}
         />
       </div>
     );

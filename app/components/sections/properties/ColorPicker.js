@@ -10,7 +10,6 @@ const ColorPicker = ({
   inputColorValue,
   handleInputKeyDown,
   handleInputChange,
-  handleFocusToggle,
   updateObjectColor,
 }) => (
   <div className="properties__color-container mt-4">
@@ -31,7 +30,6 @@ const ColorPicker = ({
       value={inputColorValue}
       onKeyDown={handleInputKeyDown}
       onChange={handleInputChange}
-      onFocus={handleFocusToggle}
     />
   </div>
 );

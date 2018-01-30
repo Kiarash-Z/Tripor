@@ -25,13 +25,13 @@ const contentStyles = {
 Modal.setAppElement(document.body);
 Modal.defaultStyles.content = contentStyles;
 
-@inject('viewStore', 'drawStore')
+@inject('appStore', 'viewStore', 'toolsStore')
 @observer
 class App extends Component {
   componentDidMount() {
-    const { viewStore, drawStore } = this.props;
-    window.addEventListener('keydown', viewStore.handleShortcutKeys);
-    window.addEventListener('resize', () => drawStore.resizeCanvas(drawStore.canvas));
+    const { viewStore, appStore } = this.props;
+    window.addEventListener('keydown', appStore.handleShortcutKeys);
+    window.addEventListener('resize', () => viewStore.resizeCanvas(viewStore.canvas));
   }
   render() {
     return (
@@ -39,7 +39,7 @@ class App extends Component {
         <ToolBar />
         <div className="sections-container">
           <Layers />
-          <div id="canvas-wrapper" style={{ flex: 1 }} onMouseDown={this.props.viewStore.handleMouseDown}>
+          <div id="canvas-wrapper" style={{ flex: 1 }} onMouseDown={this.props.toolsStore.handleMouseDown}>
             <canvas id="canvas" />
           </div>
           <Properties />

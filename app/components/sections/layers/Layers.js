@@ -4,26 +4,28 @@ import Tree from 'react-ui-tree';
 
 import NewFrameModal from './NewFrameModal';
 
-@inject('layersStore')
+@inject('appStore', 'layersStore')
 @observer
 class Layers extends Component {
   componentDidMount() {
-    this.props.layersStore.getLayers();
+    this.props.appStore.getLayers();
   }
   render() {
-    const { layersStore } = this.props;
+    const { layersStore, appStore } = this.props;
     const renderItem = item => {
-      if (item.isFirst) return (
-        <div className="mb-4">
-          <span className="font-small layers__title pb-2">{item.module}</span>
-        </div>
-      );
+      if (item.isFirst) {
+        return (
+          <div className="mb-4">
+            <span className="font-small layers__title pb-2">{item.module}</span>
+          </div>
+        );
+      }
       return (
         <div className="tree__item">
           <i className={`${item.iconType} p-1`} />
           <span className="font-tiny">{item.module}</span>
         </div>
-      )
+      );
     };
     return (
       <aside className="layers">
@@ -35,12 +37,12 @@ class Layers extends Component {
           paddingLeft={0}
         />
         <NewFrameModal
-          isOpen={layersStore.isNewFrameModalOpen}
-          devices={layersStore.predefinedDevices}
-          onSelectDevice={layersStore.selectDevice}
-          activeDevice={layersStore.activeDevice}
-          changeDimensions={layersStore.changeDeviceDimensions}
-          createFrame={layersStore.createFrame}
+          isOpen={appStore.isNewFrameModalOpen}
+          devices={appStore.predefinedDevices}
+          onSelectDevice={appStore.selectDevice}
+          activeDevice={appStore.activeDevice}
+          changeDimensions={appStore.changeDeviceDimensions}
+          createFrame={appStore.createFrame}
         />
       </aside>
     );

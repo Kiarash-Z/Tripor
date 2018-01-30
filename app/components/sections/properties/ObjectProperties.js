@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Input } from '../../common';
 
-const ObjectProperties = ({ properties, updateProperty, handleFocus, handleBlur }) => {
+const ObjectProperties = ({ properties, updateProperty }) => {
   const { left, top, width, height, angle } = properties;
   return (
     <div className="properties__section">
@@ -16,8 +16,6 @@ const ObjectProperties = ({ properties, updateProperty, handleFocus, handleBlur 
             onChange={value => updateProperty('left', value)}
             id="X"
             style={{ width: '100%' }}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
           />
         </div>
         <div className="properties__positioner-container__item mb-2">
@@ -28,8 +26,6 @@ const ObjectProperties = ({ properties, updateProperty, handleFocus, handleBlur 
             onChange={value => updateProperty('top', value)}
             id="Y"
             style={{ width: '100%' }}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
           />
         </div>
         <div className="properties__positioner-container__item mr-4 mb-2">
@@ -40,8 +36,6 @@ const ObjectProperties = ({ properties, updateProperty, handleFocus, handleBlur 
             onChange={value => updateProperty('width', value)}
             id="W"
             style={{ width: '100%' }}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
           />
         </div>
         <div className="properties__positioner-container__item mb-2">
@@ -52,8 +46,6 @@ const ObjectProperties = ({ properties, updateProperty, handleFocus, handleBlur 
             onChange={value => updateProperty('height', value)}
             id="H"
             style={{ width: '100%' }}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
           />
         </div>
         <div className="properties__positioner-container__item">
@@ -64,8 +56,6 @@ const ObjectProperties = ({ properties, updateProperty, handleFocus, handleBlur 
             className="properties__border ml-1"
             value={angle.toFixed()}
             onChange={value => updateProperty('angle', value)}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
             id="A"
             style={{ width: '100%' }}
           />
