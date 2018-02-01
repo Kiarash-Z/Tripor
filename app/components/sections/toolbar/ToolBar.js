@@ -10,6 +10,8 @@ class ToolBar extends Component {
     const { appStore, toolsStore, viewStore } = this.props;
     const renderTools = () => toolsStore.tools.map(tool => (
       <a
+        data-balloon={`${tool.name} Tool`}
+        data-balloon-pos="down"
         className={`${tool.isSelected ? 'active' : ' '} toolbar__tool pointer`}
         key={tool.id}
         onClick={() => toolsStore.setActiveTool('id', tool.id)}
@@ -23,6 +25,8 @@ class ToolBar extends Component {
       <div className="toolbar">
         <div style={{ display: 'flex', gridColumn: 1 }}>
           <a
+            data-balloon="help"
+            data-balloon-pos="down"
             className="p-3 pointer toolbar__tool"
             onClick={() => { appStore.isInfoModalOpen = true; }}
           >
@@ -53,10 +57,20 @@ class ToolBar extends Component {
               onClick={() => viewStore.changeZoom('zoomIn')}
             />
           </div>
-          <a onClick={appStore.exportToImage} className="p-3 pointer toolbar__tool">
+          <a
+            onClick={appStore.exportToImage}
+            className="p-3 pointer toolbar__tool"
+            data-balloon="Export to PNG"
+            data-balloon-pos="down"
+          >
             <i className="tripor-export" style={{ color: 'white' }} />
           </a>
-          <a onClick={appStore.saveToList} className="p-3 pointer toolbar__tool">
+          <a
+            data-balloon="Save"
+            data-balloon-pos="down"
+            onClick={appStore.saveToList}
+            className="p-3 pointer toolbar__tool"
+          >
             <i className="tripor-list" style={{ color: 'white' }} />
           </a>
         </div>

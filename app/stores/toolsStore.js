@@ -10,18 +10,18 @@ class ToolsStore {
   @action.bound
   handleMouseDown(e) {
     switch (this.activeTool.name) {
-      case 'hand':
+      case 'Hand':
         viewStore.toggleLockAllObjects(true);
         this.startPan(e);
         break;
-      case 'move':
+      case 'Move':
         viewStore.toggleLockAllObjects(false);
         break;
-      case 'frame':
+      case 'Frame':
         viewStore.toggleLockAllObjects(false);
         this.drawRect(e, true);
         break;
-      case 'shape':
+      case 'Shape':
         viewStore.toggleLockAllObjects(false);
         this.drawRect(e);
         break;

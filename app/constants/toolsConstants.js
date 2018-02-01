@@ -1,22 +1,22 @@
 const tools = [
   {
-    name: 'move',
+    name: 'Move',
     icon: 'tripor-cursor',
     isSelected: true,
     id: 0,
   },
   {
-    name: 'frame',
+    name: 'Frame',
     icon: 'tripor-frame',
     id: 1,
   },
   {
-    name: 'shape',
+    name: 'Shape',
     icon: 'tripor-square',
     id: 2,
   },
   {
-    name: 'hand',
+    name: 'Hand',
     icon: 'tripor-hand',
     id: 3,
     size: '1.1rem',

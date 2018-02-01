@@ -18,16 +18,16 @@ class AppStore {
     switch (code) {
       case 'Space':
       case 'KeyH':
-        toolsStore.setActiveTool('name', 'hand');
+        toolsStore.setActiveTool('name', 'Hand');
         break;
       case 'KeyV':
-        toolsStore.setActiveTool('name', 'move');
+        toolsStore.setActiveTool('name', 'Move');
         break;
       case 'KeyR':
-        toolsStore.setActiveTool('name', 'shape');
+        toolsStore.setActiveTool('name', 'Shape');
         break;
       case 'KeyF':
-        toolsStore.setActiveTool('name', 'frame');
+        toolsStore.setActiveTool('name', 'Frame');
         break;
       case 'Backspace':
         viewStore.canvas.getActiveObject().remove();
