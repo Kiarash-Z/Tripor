@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx';
+import uuid from 'uuid/v1';
 
 import { propertiesStore, layersStore } from './';
 import { canvasDefaultBackground } from '../constants/drawConstants';
@@ -12,6 +13,7 @@ class ViewStore {
       preserveObjectStacking: true,
       backgroundColor: canvasDefaultBackground,
     });
+    canvas.id = uuid();
     this.resizeCanvas(canvas);
   }
 

@@ -7,9 +7,6 @@ import NewFrameModal from './NewFrameModal';
 @inject('appStore', 'layersStore')
 @observer
 class Layers extends Component {
-  componentDidMount() {
-    this.props.appStore.getLayers();
-  }
   render() {
     const { layersStore, appStore } = this.props;
     const renderItem = item => {

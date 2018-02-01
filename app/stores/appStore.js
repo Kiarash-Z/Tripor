@@ -5,11 +5,13 @@ import { predefinedDevices } from '../constants/layersConstants';
 import { projectDefaultName } from '../constants/drawConstants';
 
 class AppStore {
+  @observable savedList = [];
   @observable projectName = projectDefaultName;
   @observable predefinedDevices = JSON.parse(JSON.stringify(predefinedDevices));
+  @observable isTyping = false;
   @observable isNewFrameModalOpen = false;
   @observable isInfoModalOpen = false;
-  @observable isTyping = false;
+  @observable isSavedListModalOpen = false;
 
   @action.bound
   handleShortcutKeys({ code }) {
@@ -35,9 +37,27 @@ class AppStore {
   }
 
   @action
-  getLayers() {
-    // condition will update
-    if (true) this.isNewFrameModalOpen = true;
+  getData() {
+    const savedList = JSON.parse(localStorage.getItem('Tripor-savedList'));
+    if (savedList) {
+      this.savedList = savedList;
+      this.isSavedListModalOpen = true;
+    } else this.isNewFrameModalOpen = true;
+  }
+
+  @action.bound
+  applyData(item) {
+    this.isSavedListModalOpen = false;
+    viewStore.canvas = new fabric.Canvas('canvas');
+    viewStore.canvas.loadFromJSON(item.canvas, () => {
+      viewStore.resizeCanvas(viewStore.canvas);
+
+      // will change this!
+      viewStore.setZoom(2000, 2000);
+      viewStore.addCustomListeners();
+      viewStore.canvas.id = item.id;
+      viewStore.canvas.renderAll();
+    });
   }
 
   @action.bound
@@ -51,7 +71,6 @@ class AppStore {
   @action.bound
   changeDeviceDimensions(value, prop) {
     if (this.isCustomSelected) {
-
       this.predefinedDevices = this.predefinedDevices.map(device => {
         if (device.isCustom) {
           device[prop] = value;
@@ -95,8 +114,29 @@ class AppStore {
       link.click();
       document.body.removeChild(link);
     }
-    downloadURI(viewStore.canvas.toDataURL({ format: 'png' }), 'Tripor-UI');
-    // window.open();
+    downloadURI(viewStore.canvas.toDataURL({ format: 'png' }), this.projectName);
+  }
+
+  @action.bound
+  saveToList() {
+    const oldList = JSON.parse(localStorage.getItem('Tripor-savedList')) || [];
+    const sameItem = oldList.find(item => item.id === viewStore.canvas.id);
+    const data = {
+      name: this.projectName,
+      canvas: JSON.stringify(viewStore.canvas),
+      layersTree: layersStore.treeData,
+      id: viewStore.canvas.id,
+    };
+    let newList = [...oldList, data];
+
+    // check for duplicate
+    if (sameItem) {
+      newList = oldList.map(item => {
+        if (item.id === viewStore.canvas.id) item = data;
+        return item;
+      });
+    }
+    localStorage.setItem('Tripor-savedList', JSON.stringify(newList));
   }
 
   @computed get

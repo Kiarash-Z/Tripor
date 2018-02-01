@@ -6,6 +6,9 @@ import ToolBar from './sections/toolbar/ToolBar';
 import Layers from './sections/layers/Layers';
 import Properties from './sections/properties/Properties';
 
+// modals
+import SavedListModal from './modals/SavedListModal';
+
 const contentStyles = {
   top: '50%',
   left: '50%',
@@ -30,10 +33,12 @@ Modal.defaultStyles.content = contentStyles;
 class App extends Component {
   componentDidMount() {
     const { viewStore, appStore } = this.props;
+    appStore.getData();
     window.addEventListener('keydown', appStore.handleShortcutKeys);
     window.addEventListener('resize', () => viewStore.resizeCanvas(viewStore.canvas));
   }
   render() {
+    const { appStore } = this.props;
     return (
       <div className="container">
         <ToolBar />
@@ -44,6 +49,15 @@ class App extends Component {
           </div>
           <Properties />
         </div>
+        <SavedListModal
+          isOpen={appStore.isSavedListModalOpen}
+          list={appStore.savedList}
+          handleItemClick={appStore.applyData}
+          handleNewFrame={() => {
+            appStore.isSavedListModalOpen = false;
+            appStore.isNewFrameModalOpen = true;
+          }}
+        />
       </div>
     );
   }

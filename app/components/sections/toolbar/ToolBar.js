@@ -57,7 +57,9 @@ class ToolBar extends Component {
           <a onClick={appStore.exportToImage} className="p-3 pointer toolbar__tool">
             <i className="tripor-export" style={{ color: 'white' }} />
           </a>
-
+          <a onClick={appStore.saveToList} className="p-3 pointer toolbar__tool">
+            <i className="tripor-list" style={{ color: 'white' }} />
+          </a>
         </div>
         <InfoModal
           isOpen={appStore.isInfoModalOpen}
