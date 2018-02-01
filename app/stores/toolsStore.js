@@ -1,7 +1,8 @@
 import { observable, action, computed } from 'mobx';
 
 import { viewStore } from './';
-import { tools, frameDefaultBackground, shapeDefaultBackground } from '../constants/drawConstants';
+import { frameDefaultBackground, shapeDefaultBackground } from '../constants/viewConstants';
+import { tools } from '../constants/toolsConstants';
 
 class ToolsStore {
   @observable tools = JSON.parse(JSON.stringify(tools));

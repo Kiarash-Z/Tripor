@@ -2,7 +2,7 @@ import { observable, action, computed } from 'mobx';
 import uuid from 'uuid/v1';
 
 import { propertiesStore, layersStore } from './';
-import { canvasDefaultBackground } from '../constants/drawConstants';
+import { canvasDefaultBackground } from '../constants/viewConstants';
 
 class ViewStore {
   @observable canvas = null;

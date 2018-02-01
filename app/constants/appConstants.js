@@ -42,4 +42,6 @@ const predefinedDevices = [
   },
 ];
 
-export { predefinedDevices };
+const projectDefaultName = 'Untitled';
+
+export { predefinedDevices, projectDefaultName };

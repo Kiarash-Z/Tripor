@@ -1,8 +1,7 @@
 import { observable, action, computed } from 'mobx';
 
 import { toolsStore, viewStore, layersStore } from './';
-import { predefinedDevices } from '../constants/layersConstants';
-import { projectDefaultName } from '../constants/drawConstants';
+import { predefinedDevices, projectDefaultName } from '../constants/appConstants';
 
 class AppStore {
   @observable savedList = [];

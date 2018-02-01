@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 
 import { viewStore } from './';
-import { canvasDefaultBackground } from '../constants/drawConstants';
+import { canvasDefaultBackground } from '../constants/viewConstants';
 
 class PropertiesStore {
   @observable activeBackground = canvasDefaultBackground;

@@ -23,15 +23,5 @@ const tools = [
   },
 ];
 
-const frameDefaultBackground = '#FFFFFF';
-const shapeDefaultBackground = '#C4C4C4';
-const canvasDefaultBackground = '#EDEDED';
-const projectDefaultName = 'Untitled';
 
-export {
-  tools,
-  frameDefaultBackground,
-  shapeDefaultBackground,
-  canvasDefaultBackground,
-  projectDefaultName,
-};
+export { tools };
