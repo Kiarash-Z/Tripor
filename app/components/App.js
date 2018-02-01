@@ -8,6 +8,8 @@ import Properties from './sections/properties/Properties';
 
 // modals
 import SavedListModal from './modals/SavedListModal';
+import NewFrameModal from './modals/NewFrameModal';
+import InfoModal from './modals/InfoModal';
 
 const contentStyles = {
   top: '50%',
@@ -57,6 +59,19 @@ class App extends Component {
             appStore.isSavedListModalOpen = false;
             appStore.isNewFrameModalOpen = true;
           }}
+        />
+        <NewFrameModal
+          isOpen={appStore.isNewFrameModalOpen}
+          devices={appStore.predefinedDevices}
+          onSelectDevice={appStore.selectDevice}
+          activeDevice={appStore.activeDevice}
+          changeDimensions={appStore.changeDeviceDimensions}
+          createFrame={appStore.createFrame}
+        />
+
+        <InfoModal
+          isOpen={appStore.isInfoModalOpen}
+          close={() => { appStore.isInfoModalOpen = false; }}
         />
       </div>
     );

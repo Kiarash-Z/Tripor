@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { Input } from '../../common';
-import InfoModal from './InfoModal';
 
 @inject('appStore', 'toolsStore', 'viewStore')
 @observer
@@ -61,10 +60,6 @@ class ToolBar extends Component {
             <i className="tripor-list" style={{ color: 'white' }} />
           </a>
         </div>
-        <InfoModal
-          isOpen={appStore.isInfoModalOpen}
-          close={() => { appStore.isInfoModalOpen = false; }}
-        />
       </div>
     );
   }

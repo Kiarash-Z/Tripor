@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { Button, Input } from '../../common';
+import { Button, Input } from '../common';
 
 const NewFrameModal = ({
   isOpen,

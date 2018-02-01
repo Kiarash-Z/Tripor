@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import Tree from 'react-ui-tree';
 
-import NewFrameModal from './NewFrameModal';
-
-@inject('appStore', 'layersStore')
+@inject('layersStore')
 @observer
 class Layers extends Component {
   render() {
-    const { layersStore, appStore } = this.props;
+    const { layersStore } = this.props;
     const renderItem = item => {
       if (item.isFirst) {
         return (
@@ -32,14 +30,6 @@ class Layers extends Component {
           className="font-small mt-5"
           renderNode={renderItem}
           paddingLeft={0}
-        />
-        <NewFrameModal
-          isOpen={appStore.isNewFrameModalOpen}
-          devices={appStore.predefinedDevices}
-          onSelectDevice={appStore.selectDevice}
-          activeDevice={appStore.activeDevice}
-          changeDimensions={appStore.changeDeviceDimensions}
-          createFrame={appStore.createFrame}
         />
       </aside>
     );
