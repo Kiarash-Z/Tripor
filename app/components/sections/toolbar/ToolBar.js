@@ -25,7 +25,7 @@ class ToolBar extends Component {
       <div className="toolbar">
         <div style={{ display: 'flex', gridColumn: 1 }}>
           <a
-            data-balloon="help"
+            data-balloon="Help"
             data-balloon-pos="down"
             className="p-3 pointer toolbar__tool"
             onClick={() => { appStore.isInfoModalOpen = true; }}
@@ -70,6 +70,14 @@ class ToolBar extends Component {
             data-balloon-pos="down"
             onClick={appStore.saveToList}
             className="p-3 pointer toolbar__tool"
+          >
+            <i className="tripor-save" style={{ color: 'white' }} />
+          </a>
+          <a
+            data-balloon="Open..."
+            data-balloon-pos="down"
+            onClick={() => { appStore.isSavedListModalOpen = true; }}
+            className="p-3 pointer toolbar__tool mr-2"
           >
             <i className="tripor-list" style={{ color: 'white' }} />
           </a>

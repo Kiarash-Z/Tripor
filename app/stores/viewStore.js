@@ -7,6 +7,16 @@ import { canvasDefaultBackground } from '../constants/viewConstants';
 class ViewStore {
   @observable canvas = null;
 
+  @action.bound
+  resetValues() {
+    this.canvas = null;
+    const canvasWrapper = document.querySelector('#canvas-wrapper');
+    canvasWrapper.innerHTML = '';
+    const canvasNode = document.createElement('canvas');
+    canvasNode.id = 'canvas';
+    canvasWrapper.appendChild(canvasNode);
+  }
+
   @action
   initializeCanvas() {
     const canvas = new fabric.Canvas('canvas', {

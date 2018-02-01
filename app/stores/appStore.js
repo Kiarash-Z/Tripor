@@ -13,6 +13,12 @@ class AppStore {
   @observable isSavedListModalOpen = false;
 
   @action.bound
+  resetValues() {
+    this.projectName = projectDefaultName;
+    layersStore.treeData = { module: 'Layers', isFirst: true, children: [] };
+    viewStore.resetValues();
+  }
+  @action.bound
   handleShortcutKeys({ code }) {
     if (this.isTyping) return;
     switch (code) {
@@ -46,12 +52,13 @@ class AppStore {
 
   @action.bound
   applyData(item) {
+    this.resetValues();
     this.isSavedListModalOpen = false;
     viewStore.canvas = new fabric.Canvas('canvas');
     viewStore.canvas.loadFromJSON(item.canvas, () => {
       viewStore.resizeCanvas(viewStore.canvas);
 
-      // will change this!
+      // Will change when zoom logic completes
       viewStore.setZoom(2000, 2000);
       viewStore.addCustomListeners();
       viewStore.canvas.id = item.id;
@@ -118,6 +125,7 @@ class AppStore {
 
   @action.bound
   saveToList() {
+    console.log('called')
     const oldList = JSON.parse(localStorage.getItem('Tripor-savedList')) || [];
     const sameItem = oldList.find(item => item.id === viewStore.canvas.id);
     const data = {
@@ -130,12 +138,14 @@ class AppStore {
 
     // check for duplicate
     if (sameItem) {
+      console.log('same item');
       newList = oldList.map(item => {
         if (item.id === viewStore.canvas.id) item = data;
         return item;
       });
     }
     localStorage.setItem('Tripor-savedList', JSON.stringify(newList));
+    this.savedList = newList;
   }
 
   @computed get
