@@ -70,9 +70,11 @@ class AppStore {
       module: 'Frame',
       leaf: true,
       iconType: 'tripor-frame',
+      children: [],
     };
     viewStore.initializeFrame(frame);
     viewStore.addCustomListeners();
+    this.isNewFrameModalOpen = false;
     const treeData = {
       ...layersStore.treeData,
       children: [
@@ -81,7 +83,20 @@ class AppStore {
       ],
     };
     layersStore.updateTree(treeData);
-    this.isNewFrameModalOpen = false;
+  }
+
+  @action.bound
+  exportToImage() {
+    const downloadURI = (uri, name) => {
+      const link = document.createElement('a');
+      link.download = name;
+      link.href = uri;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    downloadURI(viewStore.canvas.toDataURL({ format: 'png' }), 'Tripor-UI');
+    // window.open();
   }
 
   @computed get

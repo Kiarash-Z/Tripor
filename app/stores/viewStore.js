@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx';
 
-import { propertiesStore } from './';
+import { propertiesStore, layersStore } from './';
 import { canvasDefaultBackground } from '../constants/drawConstants';
 
 class ViewStore {
@@ -79,6 +79,7 @@ class ViewStore {
 
   @action
   evaluateObjectFrame(obj, { originX, originY }) {
+    return 'Frame';
     // const coords = obj.getCoords();
     // console.log('ob coords', obj.top);
     // const frames = viewStore.canvas.forEachObject(object => {
@@ -125,7 +126,7 @@ class ViewStore {
     this.canvas.on('object:scaling', propertiesStore.updateObjectProperties);
     this.canvas.on('object:rotating', propertiesStore.updateObjectProperties);
     this.canvas.on('selection:cleared', propertiesStore.handleObjectsDeselect);
-    // drawStore.canvas.on('object:added', layersStore)
+    this.canvas.on('object:added', layersStore.addObject);
   }
 
   @computed get

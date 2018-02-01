@@ -40,18 +40,24 @@ class ToolBar extends Component {
           />
           <i className="tripor-edit toolbar__title-icon" />
         </div>
-        <div className="toolbar__percentage pr-4 pointer font-small">
-          <i
-            className="tripor-minus p-2 font-small"
-            style={{ color: 'white' }}
-            onClick={() => viewStore.changeZoom('zoomOut')}
-          />
-          <span style={{ color: 'white' }}>{viewStore.zoomPercentage}</span>
-          <i
-            className="tripor-plus p-2 font-small"
-            style={{ color: 'white' }}
-            onClick={() => viewStore.changeZoom('zoomIn')}
-          />
+        <div className="toolbar__right-action">
+          <div className="mr-3 pointer font-small">
+            <i
+              className="tripor-minus p-2 font-small"
+              style={{ color: 'white' }}
+              onClick={() => viewStore.changeZoom('zoomOut')}
+            />
+            <span style={{ color: 'white' }}>{viewStore.zoomPercentage}</span>
+            <i
+              className="tripor-plus p-2 font-small"
+              style={{ color: 'white' }}
+              onClick={() => viewStore.changeZoom('zoomIn')}
+            />
+          </div>
+          <a onClick={appStore.exportToImage} className="p-3 pointer toolbar__tool">
+            <i className="tripor-export" style={{ color: 'white' }} />
+          </a>
+
         </div>
         <InfoModal
           isOpen={appStore.isInfoModalOpen}

@@ -7,6 +7,23 @@ class LayersStore {
   updateTree(newTree) {
     this.treeData = newTree;
   }
+
+  @action.bound
+  addObject({ target }) {
+    const children = this.treeData.children.map(child => {
+      if (child.module === target.parentFrame) {
+        child.children = child.children.slice();
+        child.children.push({ module: 'Rectangle', iconType: 'tripor-rectangle' });
+      }
+      return child;
+    });
+    const treeData = {
+      ...this.treeData,
+      children,
+    };
+    console.log(treeData)
+    this.updateTree(treeData);
+  }
 }
 
 

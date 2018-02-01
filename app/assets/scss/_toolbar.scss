@@ -33,11 +33,11 @@
       color: white;
     }
   }
-  .toolbar__percentage {
-    grid-column: 3;
+  .toolbar__right-action {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    grid-column: 3;
   }
 }
 .info-modal {
