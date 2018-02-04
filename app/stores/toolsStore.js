@@ -71,7 +71,7 @@ class ToolsStore {
       top: originY,
       width: 0,
       height: 0,
-      type: isFrame ? 'frame' : 'rect',
+      triporType: isFrame ? 'frame' : 'rect',
       fill: isFrame ? frameDefaultBackground : shapeDefaultBackground,
     });
     const parentFrame = isFrame ? false : viewStore.evaluateObjectFrame(rect, { originX, originY });
@@ -100,7 +100,7 @@ class ToolsStore {
       fontSize: 150,
       textAlign: 'center',
       fill: 'black',
-      type : 'textbox'
+      triporType : 'textbox'
     });
     const parentFrame = viewStore.evaluateObjectFrame(textbox, { originX, originY });
     textbox.parentFrame = parentFrame;
