@@ -21,7 +21,6 @@ class LayersStore {
       ...this.treeData,
       children,
     };
-    console.log(treeData)
     this.updateTree(treeData);
   }
 }

@@ -12,15 +12,24 @@ class AppStore {
   @observable isInfoModalOpen = false;
   @observable isSavedListModalOpen = false;
 
+  @action
+  getData() {
+    const savedList = JSON.parse(localStorage.getItem('Tripor-savedList'));
+    if (savedList) {
+      this.savedList = savedList;
+      this.isSavedListModalOpen = true;
+    } else this.isNewFrameModalOpen = true;
+  }
+
   @action.bound
   resetValues() {
     this.projectName = projectDefaultName;
     layersStore.treeData = { module: 'Layers', isFirst: true, children: [] };
     viewStore.resetValues();
   }
+
   @action.bound
   handleShortcutKeys({ code }) {
-    console.log(this.isTyping)
     if (this.isTyping) return;
     switch (code) {
       case 'Space':
@@ -45,14 +54,6 @@ class AppStore {
     }
   }
 
-  @action
-  getData() {
-    const savedList = JSON.parse(localStorage.getItem('Tripor-savedList'));
-    if (savedList) {
-      this.savedList = savedList;
-      this.isSavedListModalOpen = true;
-    } else this.isNewFrameModalOpen = true;
-  }
 
   @action.bound
   applyData(item) {
@@ -61,9 +62,7 @@ class AppStore {
     viewStore.canvas = new fabric.Canvas('canvas');
     viewStore.canvas.loadFromJSON(item.canvas, () => {
       viewStore.resizeCanvas(viewStore.canvas);
-
-      // Will change when zoom logic completes
-      viewStore.setZoom(2000, 2000);
+      viewStore.canvas.zoomToPoint(viewStore.centerPoint, item.latestZoom);
       viewStore.addCustomListeners();
       viewStore.canvas.id = item.id;
       viewStore.canvas.renderAll();
@@ -129,7 +128,6 @@ class AppStore {
 
   @action.bound
   saveToList() {
-    console.log('called')
     const oldList = JSON.parse(localStorage.getItem('Tripor-savedList')) || [];
     const sameItem = oldList.find(item => item.id === viewStore.canvas.id);
     const data = {
@@ -137,12 +135,12 @@ class AppStore {
       canvas: JSON.stringify(viewStore.canvas),
       layersTree: layersStore.treeData,
       id: viewStore.canvas.id,
+      latestZoom: viewStore.canvas.getZoom(),
     };
     let newList = [...oldList, data];
 
     // check for duplicate
     if (sameItem) {
-      console.log('same item');
       newList = oldList.map(item => {
         if (item.id === viewStore.canvas.id) item = data;
         return item;

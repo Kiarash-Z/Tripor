@@ -16,15 +16,15 @@ const tools = [
     id: 2,
   },
   {
-    name: 'Hand',
-    icon: 'tripor-hand',
-    id: 3,
-    size: '1.1em',
-  },
-  {
     name: 'Text',
     icon: 'tripor-text',
+    id: 3,
+  },
+  {
+    name: 'Hand',
+    icon: 'tripor-hand',
     id: 4,
+    size: '1.1em',
   },
 ];
 
