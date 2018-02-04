@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 
 import { viewStore } from './';
-import { frameDefaultBackground, shapeDefaultBackground } from '../constants/viewConstants';
+import { frameDefaultBackground, shapeDefaultBackground, textboxDefaultText } from '../constants/viewConstants';
 import { tools } from '../constants/toolsConstants';
 
 class ToolsStore {
@@ -94,7 +94,7 @@ class ToolsStore {
     const { x, y } = viewStore.canvas.getPointer(e);
     const originX = x;
     const originY = y;
-    const textbox = new fabric.Textbox('My Text', {
+    const textbox = new fabric.Textbox(textboxDefaultText, {
       left: originX,
       top: originY,
       fontSize: 150,
