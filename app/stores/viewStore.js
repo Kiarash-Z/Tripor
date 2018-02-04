@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import uuid from 'uuid/v1';
 
-import { propertiesStore, layersStore } from './';
+import { propertiesStore, layersStore, appStore } from './';
 import { canvasDefaultBackground } from '../constants/viewConstants';
 
 class ViewStore {
@@ -133,12 +133,16 @@ class ViewStore {
 
   @action.bound
   addCustomListeners() {
-    this.canvas.on('object:selected', propertiesStore.handleObjectSelect);
+    this.canvas.on('object:selected', () => {
+      this.updateCanvas();
+      propertiesStore.handleObjectSelect();
+    })
     this.canvas.on('object:moving', propertiesStore.updateObjectProperties);
     this.canvas.on('object:scaling', propertiesStore.updateObjectProperties);
     this.canvas.on('object:rotating', propertiesStore.updateObjectProperties);
     this.canvas.on('selection:cleared', propertiesStore.handleObjectsDeselect);
     this.canvas.on('object:added', layersStore.addObject);
+    this.canvas.on('text:changed', () => { appStore.isTyping = true; });
   }
 
   @computed get

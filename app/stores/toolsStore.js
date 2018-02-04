@@ -25,6 +25,10 @@ class ToolsStore {
         viewStore.toggleLockAllObjects(false);
         this.drawRect(e);
         break;
+      case 'Text':
+        viewStore.toggleLockAllObjects(false);
+        this.drawText(e);
+        break;
     }
   }
 
@@ -52,12 +56,12 @@ class ToolsStore {
 
   @action
   drawRect(e, isFrame) {
+    const canvasWrapper = document.querySelector('#canvas-wrapper');
     const activeGroup = viewStore.canvas.getActiveGroup();
     const activeObject = viewStore.canvas.getActiveObject();
     if (activeGroup || (activeObject ? activeObject.isFrame === isFrame : false)) return;
     if (!isFrame) viewStore.toggleFramesControls(false);
     viewStore.canvas.selection = false;
-    const canvasWrapper = document.querySelector('#canvas-wrapper');
     const { x, y } = viewStore.canvas.getPointer(e);
     const originX = x;
     const originY = y;
@@ -67,35 +71,68 @@ class ToolsStore {
       top: originY,
       width: 0,
       height: 0,
+      type: isFrame ? 'frame' : 'rect',
       fill: isFrame ? frameDefaultBackground : shapeDefaultBackground,
     });
     const parentFrame = isFrame ? false : viewStore.evaluateObjectFrame(rect, { originX, originY });
     rect.parentFrame = parentFrame;
     viewStore.canvas.add(rect);
-    const handleMove = event => {
-      const pointer = viewStore.canvas.getPointer(event);
 
-      if (originX > pointer.x) {
-        rect.set({ left: pointer.x });
-      }
-      if (originY > pointer.y) {
-        rect.set({ top: pointer.y });
-      }
+    const startDraw = event => this.handleDrawMove(event, { originX, originY }, rect);
 
-      rect.set({ width: Math.abs(originX - pointer.x) });
-      rect.set({ height: Math.abs(originY - pointer.y) });
+    canvasWrapper.addEventListener('mousemove', startDraw);
+    canvasWrapper.addEventListener('mouseup', () => this.stopDraw(startDraw));
+  }
 
-      viewStore.canvas.renderAll();
-    };
+  @action
+  drawText(e) {
+    const canvasWrapper = document.querySelector('#canvas-wrapper');
+    const activeGroup = viewStore.canvas.getActiveGroup();
+    const activeObject = viewStore.canvas.getActiveObject();
+    if (activeGroup || activeObject) return;
+    viewStore.canvas.selection = false;
+    const { x, y } = viewStore.canvas.getPointer(e);
+    const originX = x;
+    const originY = y;
+    const textbox = new fabric.Textbox('My Text', {
+      left: originX,
+      top: originY,
+      fontSize: 150,
+      textAlign: 'center',
+      fill: 'black',
+      type : 'textbox'
+    });
+    const parentFrame = viewStore.evaluateObjectFrame(textbox, { originX, originY });
+    textbox.parentFrame = parentFrame;
+    viewStore.canvas.add(textbox);
 
-    const stopDraw = () => {
-      canvasWrapper.removeEventListener('mousemove', handleMove);
-      viewStore.canvas.selection = true;
-      viewStore.toggleFramesControls(true);
-    };
+    const startDraw = event => this.handleDrawMove(event, { originX, originY }, textbox);
 
-    canvasWrapper.addEventListener('mousemove', handleMove);
-    canvasWrapper.addEventListener('mouseup', stopDraw);
+    canvasWrapper.addEventListener('mousemove', startDraw);
+    canvasWrapper.addEventListener('mouseup', () => this.stopDraw(startDraw));
+  }
+
+  @action
+  handleDrawMove(event, { originX, originY }, object) {
+    const { x, y } = viewStore.canvas.getPointer(event);
+    if (originX > x) {
+      object.set({ left: x });
+    }
+    if (originY > y) {
+      object.set({ top: y });
+    }
+    object.set({ width: Math.abs(originX - x) });
+    object.set({ height: Math.abs(originY - y) });
+
+    viewStore.canvas.renderAll();
+  }
+
+  @action
+  stopDraw(startFunc) {
+    const canvasWrapper = document.querySelector('#canvas-wrapper');
+    canvasWrapper.removeEventListener('mousemove', startFunc);
+    viewStore.canvas.selection = true;
+    viewStore.toggleFramesControls(true);
   }
 
   @action.bound

@@ -20,6 +20,7 @@ class AppStore {
   }
   @action.bound
   handleShortcutKeys({ code }) {
+    console.log(this.isTyping)
     if (this.isTyping) return;
     switch (code) {
       case 'Space':
@@ -34,6 +35,9 @@ class AppStore {
         break;
       case 'KeyF':
         toolsStore.setActiveTool('name', 'Frame');
+        break;
+      case 'KeyT':
+        toolsStore.setActiveTool('name', 'Text');
         break;
       case 'Backspace':
         viewStore.canvas.getActiveObject().remove();

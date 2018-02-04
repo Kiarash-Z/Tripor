@@ -13,7 +13,7 @@ const ObjectProperties = ({ properties, updateProperty }) => {
           <Input
             className="properties__border ml-1"
             value={left.toFixed()}
-            onChange={value => updateProperty('left', value)}
+            onChange={value => updateProperty('left', value, true)}
             id="X"
             style={{ width: '100%' }}
           />
@@ -23,7 +23,7 @@ const ObjectProperties = ({ properties, updateProperty }) => {
           <Input
             className="properties__border ml-1"
             value={top.toFixed()}
-            onChange={value => updateProperty('top', value)}
+            onChange={value => updateProperty('top', value, true)}
             id="Y"
             style={{ width: '100%' }}
           />
@@ -33,7 +33,7 @@ const ObjectProperties = ({ properties, updateProperty }) => {
           <Input
             className="properties__border ml-1"
             value={width.toFixed()}
-            onChange={value => updateProperty('width', value)}
+            onChange={value => updateProperty('width', value, true)}
             id="W"
             style={{ width: '100%' }}
           />
@@ -43,7 +43,7 @@ const ObjectProperties = ({ properties, updateProperty }) => {
           <Input
             className="properties__border ml-1"
             value={height.toFixed()}
-            onChange={value => updateProperty('height', value)}
+            onChange={value => updateProperty('height', value, true)}
             id="H"
             style={{ width: '100%' }}
           />
@@ -55,7 +55,7 @@ const ObjectProperties = ({ properties, updateProperty }) => {
           <Input
             className="properties__border ml-1"
             value={angle.toFixed()}
-            onChange={value => updateProperty('angle', value)}
+            onChange={value => updateProperty('angle', value, true)}
             id="A"
             style={{ width: '100%' }}
           />

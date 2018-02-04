@@ -1,11 +1,13 @@
 import { observable, action } from 'mobx';
 
-import { viewStore } from './';
+import { viewStore, appStore } from './';
 import { canvasDefaultBackground } from '../constants/viewConstants';
+import { alignments } from '../constants/propertiesConstants';
 
 class PropertiesStore {
   @observable activeBackground = canvasDefaultBackground;
   @observable inputColorValue = canvasDefaultBackground;
+  @observable alignments = alignments;
   @observable objectProperties = { left: 0, top: 0, width: 0, height: 0, angle: 0 }
   @observable isColorPickerOpen = false;
   @observable isCanvasSelected = true;
@@ -55,16 +57,17 @@ class PropertiesStore {
 
   @action.bound
   handleObjectsDeselect() {
+    appStore.isTyping = false;
     this.isCanvasSelected = true;
     this.activeBackground = viewStore.canvas.backgroundColor;
     this.inputColorValue = viewStore.canvas.backgroundColor;
   }
 
   @action.bound
-  updateObjectProperty(prop, value) {
-    const numbered = Number(value);
-    this.objectProperties = { ...this.objectProperties, [prop]: numbered };
-    viewStore.canvas.getActiveObject().set(prop, numbered);
+  updateObjectProperty(prop, value, isNumbered) {
+    const changedValue = isNumbered ? Number(value) : value;
+    this.objectProperties = { ...this.objectProperties, [prop]: changedValue };
+    viewStore.canvas.getActiveObject().set(prop, changedValue);
     viewStore.canvas.renderAll();
   }
 
@@ -79,6 +82,16 @@ class PropertiesStore {
       width: viewStore.activeObject.getWidth() - 1,
       height: viewStore.activeObject.getHeight() - 1,
     };
+  }
+
+  @action.bound
+  handleALignmentChange(id, align) {
+    this.alignments = this.alignments.map(alignment => {
+      alignment.isSelected = alignment.id === id;
+      return alignment;
+    });
+    this.updateObjectProperty('textAlign', align);
+    viewStore.canvas.renderAll();
   }
 }
 

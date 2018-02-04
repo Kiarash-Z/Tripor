@@ -20,8 +20,29 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.tripor-canvas:before {
+  content: "\e919";
+}
+.tripor-save:before {
+  content: "\e917";
+}
+.tripor-list:before {
+  content: "\e916";
+}
+.tripor-export:before {
+  content: "\e915";
+}
+.tripor-down:before {
+  content: "\e914";
+}
 .tripor-information:before {
   content: "\e904";
+}
+.tripor-text:before {
+  content: "\e918";
+}
+.tripor-rectangle:before {
+  content: "\e913";
 }
 .tripor-angle:before {
   content: "\e912";
@@ -77,21 +98,18 @@ i {
 .tripor-mobile:before {
   content: "\e909";
 }
-.tripor-rectangle:before {
-  content: "\e913";
+.tripor-center-alignment:before {
+  content: "\e91a";
 }
-.tripor-down:before {
-  content: "\e914";
+.tripor-right-alignment:before {
+  content: "\e91b";
 }
-.tripor-export:before {
-  content: "\e915";
+.tripor-left-alignment:before {
+  content: "\e91c";
 }
-.tripor-list:before {
-  content: "\e916";
+.tripor-text-size:before {
+  content: "\e91d";
 }
-.tripor-canvas:before {
-  content: "\e917";
-}
-.tripor-save:before {
-  content: "\e917";
+.tripor-line-height:before {
+  content: "\e91e";
 }

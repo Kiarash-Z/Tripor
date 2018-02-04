@@ -19,7 +19,12 @@ const tools = [
     name: 'Hand',
     icon: 'tripor-hand',
     id: 3,
-    size: '1.1rem',
+    size: '1.1em',
+  },
+  {
+    name: 'Text',
+    icon: 'tripor-text',
+    id: 4,
   },
 ];
 
