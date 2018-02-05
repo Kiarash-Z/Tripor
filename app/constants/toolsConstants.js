@@ -12,7 +12,19 @@ const tools = [
   },
   {
     name: 'Shape',
-    icon: 'tripor-square',
+    isOpen: false,
+    children: [
+      {
+        name: 'Rectangle',
+        icon: 'tripor-square',
+        id: 0,
+      },
+      {
+        name: 'Circle',
+        icon: 'tripor-circle',
+        id: 1,
+      }
+    ],
     id: 2,
   },
   {

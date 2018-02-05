@@ -31,6 +31,7 @@ class AppStore {
   @action.bound
   handleShortcutKeys({ code }) {
     if (this.isTyping) return;
+    const shapeParent = toolsStore.tools.find(tool => tool.name === 'Shape');;
     switch (code) {
       case 'Space':
       case 'KeyH':
@@ -40,7 +41,14 @@ class AppStore {
         toolsStore.setActiveTool('name', 'Move');
         break;
       case 'KeyR':
+        const rectangle = toolsStore.findChildTool('Shape', 'Rectangle');
         toolsStore.setActiveTool('name', 'Shape');
+        toolsStore.setActiveChildTool(shapeParent.id, rectangle.id);
+        break;
+      case 'KeyO':
+        const circle = toolsStore.findChildTool('Shape', 'Circle');
+        toolsStore.setActiveTool('name', 'Shape');
+        toolsStore.setActiveChildTool(shapeParent.id, circle.id);
         break;
       case 'KeyF':
         toolsStore.setActiveTool('name', 'Frame');

@@ -21,9 +21,13 @@ class ToolsStore {
         viewStore.toggleLockAllObjects(false);
         this.drawRect(e, true);
         break;
-      case 'Shape':
+      case 'Rectangle':
         viewStore.toggleLockAllObjects(false);
         this.drawRect(e);
+        break;
+      case 'Circle' :
+        viewStore.toggleLockAllObjects(false);
+        this.drawCircle(e)
         break;
       case 'Text':
         viewStore.toggleLockAllObjects(false);
@@ -59,14 +63,13 @@ class ToolsStore {
     const canvasWrapper = document.querySelector('#canvas-wrapper');
     const activeGroup = viewStore.canvas.getActiveGroup();
     const activeObject = viewStore.canvas.getActiveObject();
-    if (activeGroup || (activeObject ? activeObject.isFrame === isFrame : false)) return;
+    if (activeGroup || activeObject) return;
     if (!isFrame) viewStore.toggleFramesControls(false);
     viewStore.canvas.selection = false;
     const { x, y } = viewStore.canvas.getPointer(e);
     const originX = x;
     const originY = y;
     const rect = new fabric.Rect({
-      isFrame,
       left: originX,
       top: originY,
       width: 0,
@@ -83,6 +86,37 @@ class ToolsStore {
     canvasWrapper.addEventListener('mousemove', startDraw);
     canvasWrapper.addEventListener('mouseup', () => this.stopDraw(startDraw));
   }
+
+  @action
+  drawCircle(e) {
+    const canvasWrapper = document.querySelector('#canvas-wrapper');
+    const activeGroup = viewStore.canvas.getActiveGroup();
+    const activeObject = viewStore.canvas.getActiveObject();
+    if (activeGroup || activeObject) return;
+    viewStore.toggleFramesControls(false);
+    viewStore.canvas.selection = false;
+    const { x, y } = viewStore.canvas.getPointer(e);
+    const originX = x;
+    const originY = y;
+    const circle = new fabric.Circle({
+      left: originX,
+      top: originY,
+      width: 0,
+      height: 0,
+      radius: 1,
+      triporType: 'circle',
+      fill: shapeDefaultBackground,
+    });
+    const parentFrame = viewStore.evaluateObjectFrame(circle, { originX, originY });
+    circle.parentFrame = parentFrame;
+    viewStore.canvas.add(circle);
+
+    const startDraw = event => this.handleDrawMove(event, { originX, originY }, circle);
+
+    canvasWrapper.addEventListener('mousemove', startDraw);
+    canvasWrapper.addEventListener('mouseup', () => this.stopDraw(startDraw));
+  }
+
 
   @action
   drawText(e) {
@@ -123,6 +157,7 @@ class ToolsStore {
     }
     object.set({ width: Math.abs(originX - x) });
     object.set({ height: Math.abs(originY - y) });
+    object.set({ radius: Math.abs(x - originX) });
 
     viewStore.canvas.renderAll();
   }
@@ -142,10 +177,49 @@ class ToolsStore {
       return tool;
     });
   }
+  @action.bound
+  toggleToolSelectors(id) {
+    this.tools = this.tools.map(tool => {
+      if(tool.id === id) tool.isOpen = !tool.isOpen;
+      return tool;
+    })
+  }
+
+  @action.bound
+  setActiveChildTool(parentId, childId) {
+    this.tools = this.tools.map(tool => {
+      if (tool.id === parentId) {
+        tool.children = tool.children.map(child => {
+          child.isSelected = child.id === childId;
+          return child;
+        });
+      }
+      return tool;
+    })
+  }
+
+  @action
+  closeAllToolsMenu() {
+    this.tools = this.tools.map(tool => {
+      tool.isOpen = false;
+      return tool;
+    });
+  }
 
   @computed get
   activeTool() {
-    return this.tools.find(tool => tool.isSelected) || {};
+    const activeTool = this.tools.find(tool => tool.isSelected);
+    if (activeTool.children) return activeTool.children.find(child => child.isSelected) || {};
+    return activeTool || {};
+  }
+
+  @computed get
+  findChildTool() {
+    return (parentName, childName) => {
+      const parent = this.tools.find(tool => tool.name === parentName);
+      const child = parent.children.find(child => child.name === childName);
+      return child;
+    }
   }
 }
 

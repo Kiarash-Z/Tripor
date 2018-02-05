@@ -49,7 +49,7 @@ class ViewStore {
       fill: 'white',
     });
     this.setZoom(width, height);
-    frame.isFrame = true;
+    frame.type = 'frame';
     this.canvas.add(frame);
     this.canvas.forEachObject(obj => {
       obj.center();
@@ -71,12 +71,10 @@ class ViewStore {
   @action
   toggleFramesControls(bool) {
     this.canvas.forEachObject(obj => {
-      if (obj.isFrame) {
-        obj.hasControls = bool;
-        obj.lockMovementX = !bool;
-        obj.lockMovementY = !bool;
-        obj.setCoords();
-      }
+      obj.hasControls = bool;
+      obj.lockMovementX = !bool;
+      obj.lockMovementY = !bool;
+      obj.setCoords();
     });
   }
 

@@ -17,7 +17,9 @@ class ToolBar extends Component {
         <DirectTools
           tools={toolsStore.tools}
           onClick={toolId => toolsStore.setActiveTool('id', toolId)}
+          onChildToolClick={(parentId, childId) => toolsStore.setActiveChildTool(parentId, childId)}
           onModalToolClick={() => { appStore.isInfoModalOpen = true; }}
+          toggleToolSelectors={id => toolsStore.toggleToolSelectors(id)}
         />
         <ProjectTitle
           projectName={appStore.projectName}
