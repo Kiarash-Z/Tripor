@@ -24,7 +24,7 @@ class Properties extends Component {
       if (viewStore.canvas && !propertiesStore.isCanvasSelected) {
         const activeObject = viewStore.activeObject;
         if (activeObject) {
-            if (activeObject.triporType === 'textbox')
+            if (activeObject.triporType === 'Textbox')
             return (
               <TextProperties
                 alignments={propertiesStore.alignments}

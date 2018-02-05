@@ -24,7 +24,7 @@ class AppStore {
   @action.bound
   resetValues() {
     this.projectName = projectDefaultName;
-    layersStore.treeData = { module: 'Layers', isFirst: true, children: [] };
+    layersStore.treeData = [];
     viewStore.resetValues();
   }
 
@@ -45,7 +45,7 @@ class AppStore {
         toolsStore.setActiveTool('name', 'Shape');
         toolsStore.setActiveChildTool(shapeParent.id, rectangle.id);
         break;
-      case 'KeyO':
+      case 'KeyC':
         const circle = toolsStore.findChildTool('Shape', 'Circle');
         toolsStore.setActiveTool('name', 'Shape');
         toolsStore.setActiveChildTool(shapeParent.id, circle.id);
@@ -72,6 +72,7 @@ class AppStore {
       viewStore.resizeCanvas(viewStore.canvas);
       viewStore.canvas.zoomToPoint(viewStore.centerPoint, item.latestZoom);
       viewStore.addCustomListeners();
+      layersStore.treeData = item.treeData;
       viewStore.canvas.id = item.id;
       viewStore.canvas.renderAll();
     });
@@ -109,16 +110,7 @@ class AppStore {
       children: [],
     };
     viewStore.initializeFrame(frame);
-    viewStore.addCustomListeners();
     this.isNewFrameModalOpen = false;
-    const treeData = {
-      ...layersStore.treeData,
-      children: [
-        ...layersStore.treeData.children,
-        frame,
-      ],
-    };
-    layersStore.updateTree(treeData);
   }
 
   @action.bound
@@ -140,8 +132,8 @@ class AppStore {
     const sameItem = oldList.find(item => item.id === viewStore.canvas.id);
     const data = {
       name: this.projectName,
-      canvas: JSON.stringify(viewStore.canvas),
-      layersTree: layersStore.treeData,
+      canvas: viewStore.canvas.toJSON([ 'id', 'triporIconType', 'triporType', 'parentFrame']),
+      treeData: layersStore.treeData,
       id: viewStore.canvas.id,
       latestZoom: viewStore.canvas.getZoom(),
     };

@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx';
+import uuid from 'uuid/v1';
 
 import { viewStore } from './';
 import { frameDefaultBackground, shapeDefaultBackground, textboxDefaultText } from '../constants/viewConstants';
@@ -74,8 +75,10 @@ class ToolsStore {
       top: originY,
       width: 0,
       height: 0,
-      triporType: isFrame ? 'frame' : 'rect',
+      triporType: isFrame ? 'Frame' : 'Rectangle',
+      triporIconType: isFrame ? 'tripor-frame' : 'tripor-rectangle',
       fill: isFrame ? frameDefaultBackground : shapeDefaultBackground,
+      id: uuid(),
     });
     const parentFrame = isFrame ? false : viewStore.evaluateObjectFrame(rect, { originX, originY });
     rect.parentFrame = parentFrame;
@@ -104,8 +107,10 @@ class ToolsStore {
       width: 0,
       height: 0,
       radius: 1,
-      triporType: 'circle',
+      triporType: 'Circle',
+      triporIconType: 'tripor-circle',
       fill: shapeDefaultBackground,
+      id: uuid(),
     });
     const parentFrame = viewStore.evaluateObjectFrame(circle, { originX, originY });
     circle.parentFrame = parentFrame;
@@ -134,7 +139,9 @@ class ToolsStore {
       fontSize: 150,
       textAlign: 'center',
       fill: 'black',
-      triporType : 'textbox'
+      triporIconType: 'tripor-text',
+      triporType : 'Textbox',
+      id: uuid(),
     });
     const parentFrame = viewStore.evaluateObjectFrame(textbox, { originX, originY });
     textbox.parentFrame = parentFrame;

@@ -41,15 +41,18 @@ class ViewStore {
   @action.bound
   initializeFrame({ width, height }) {
     this.initializeCanvas();
+    this.addCustomListeners();
     const frame = new fabric.Rect({
       width,
       height,
       left: 330,
       top: 560,
       fill: 'white',
+      triporType: 'Frame',
+      triporIconType: 'tripor-frame',
+      id: uuid(),
     });
     this.setZoom(width, height);
-    frame.type = 'frame';
     this.canvas.add(frame);
     this.canvas.forEachObject(obj => {
       obj.center();
@@ -89,7 +92,7 @@ class ViewStore {
 
   @action
   evaluateObjectFrame(obj, { originX, originY }) {
-    return 'Frame';
+    return this.canvas.getObjects().find(obj => obj.triporType === 'Frame').id
     // const coords = obj.getCoords();
     // console.log('ob coords', obj.top);
     // const frames = viewStore.canvas.forEachObject(object => {
