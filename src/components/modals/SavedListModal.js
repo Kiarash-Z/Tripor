@@ -10,7 +10,7 @@ const SavedListModal = ({ isOpen, list, handleItemClick, handleNewFrame }) => {
         className="list-item mb-2"
         onClick={() => handleItemClick(item)}
         bordered={false}
-        style={{ display: 'flex', alignItems: 'center', width: '100%', textAlign: 'left', borderBottom: '0.5px solid #979797' }}
+        style={{ display: 'flex', alignItems: 'center', width: '100%', textAlign: 'left', borderBottom: '0.5px solid #979797', background: 'white' }}
       >
         <i className="tripor-canvas mr-2" style={{ fontSize: '1.9em' }} />
         <span>{item.name}</span>

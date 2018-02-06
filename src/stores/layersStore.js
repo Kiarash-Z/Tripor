@@ -64,7 +64,7 @@ class LayersStore {
   addBorder(id) {
     const activeObj = viewStore.canvas.getObjects().find(obj => obj.id === id);
     activeObj.set('stroke', '#60C1F9');
-    activeObj.set('strokeWidth', 10);
+    activeObj.set('strokeWidth', 9);
     viewStore.canvas.renderAll();
   }
 
