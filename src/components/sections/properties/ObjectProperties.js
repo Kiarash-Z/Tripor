@@ -16,6 +16,7 @@ const ObjectProperties = ({ properties, updateProperty }) => {
             onChange={value => updateProperty('left', value, true)}
             id="X"
             style={{ width: '100%' }}
+            type="number"
           />
         </div>
         <div className="properties__positioner-container__item mb-2">
@@ -26,6 +27,7 @@ const ObjectProperties = ({ properties, updateProperty }) => {
             onChange={value => updateProperty('top', value, true)}
             id="Y"
             style={{ width: '100%' }}
+            type="number"
           />
         </div>
         <div className="properties__positioner-container__item mr-4 mb-2">
@@ -36,6 +38,7 @@ const ObjectProperties = ({ properties, updateProperty }) => {
             onChange={value => updateProperty('width', value, true)}
             id="W"
             style={{ width: '100%' }}
+            type="number"
           />
         </div>
         <div className="properties__positioner-container__item mb-2">
@@ -46,6 +49,7 @@ const ObjectProperties = ({ properties, updateProperty }) => {
             onChange={value => updateProperty('height', value, true)}
             id="H"
             style={{ width: '100%' }}
+            type="number"
           />
         </div>
         <div className="properties__positioner-container__item">
@@ -58,6 +62,7 @@ const ObjectProperties = ({ properties, updateProperty }) => {
             onChange={value => updateProperty('angle', value, true)}
             id="A"
             style={{ width: '100%' }}
+            type="number"
           />
         </div>
       </div>

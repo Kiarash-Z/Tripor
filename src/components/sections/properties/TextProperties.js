@@ -28,6 +28,7 @@ const TextProperties = ({ alignments, onChangeALignment, fontSize, lineHeight, u
               value={fontSize.toFixed()}
               onChange={value => updateProperty('fontSize', value, true)}
               style={{ width: '100%' }}
+              type="number"
             />
         </div>
         <div className="properties__positioner-container__item">
@@ -37,6 +38,7 @@ const TextProperties = ({ alignments, onChangeALignment, fontSize, lineHeight, u
               value={lineHeight.toFixed()}
               onChange={value => updateProperty('lineHeight', value, true)}
               style={{ width: '100%' }}
+              type="number"
             />
         </div>
       </div>
