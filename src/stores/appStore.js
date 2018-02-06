@@ -45,10 +45,10 @@ class AppStore {
         toolsStore.setActiveTool('name', 'Shape');
         toolsStore.setActiveChildTool(shapeParent.id, rectangle.id);
         break;
-      case 'KeyC':
-        const circle = toolsStore.findChildTool('Shape', 'Circle');
+      case 'KeyO':
+        const ellipse = toolsStore.findChildTool('Shape', 'Ellipse');
         toolsStore.setActiveTool('name', 'Shape');
-        toolsStore.setActiveChildTool(shapeParent.id, circle.id);
+        toolsStore.setActiveChildTool(shapeParent.id, ellipse.id);
         break;
       case 'KeyF':
         toolsStore.setActiveTool('name', 'Frame');

@@ -26,9 +26,9 @@ class ToolsStore {
         viewStore.toggleLockAllObjects(false);
         this.drawRect(e);
         break;
-      case 'Circle' :
+      case 'Ellipse' :
         viewStore.toggleLockAllObjects(false);
-        this.drawCircle(e)
+        this.drawEllipse(e)
         break;
       case 'Text':
         viewStore.toggleLockAllObjects(false);
@@ -92,7 +92,7 @@ class ToolsStore {
   }
 
   @action
-  drawCircle(e) {
+  drawEllipse(e) {
     const canvasWrapper = document.querySelector('#canvas-wrapper');
     const activeGroup = viewStore.canvas.getActiveGroup();
     const activeObject = viewStore.canvas.getActiveObject();
@@ -102,23 +102,23 @@ class ToolsStore {
     const { x, y } = viewStore.canvas.getPointer(e);
     const originX = x;
     const originY = y;
-    const circle = new fabric.Circle({
+    const ellipse = new fabric.Ellipse({
       left: originX,
       top: originY,
       width: 0,
       height: 0,
       radius: 1,
-      triporType: 'Circle',
+      triporType: 'Ellipse',
       triporIconType: 'tripor-circle',
-      triporName: this.evaluateObjectName('Circle'),
+      triporName: this.evaluateObjectName('Ellipse'),
       fill: shapeDefaultBackground,
       id: uuid(),
     });
-    const parentFrame = viewStore.evaluateObjectFrame(circle, { originX, originY });
-    circle.parentFrame = parentFrame;
-    viewStore.canvas.add(circle);
+    const parentFrame = viewStore.evaluateObjectFrame(ellipse, { originX, originY });
+    ellipse.parentFrame = parentFrame;
+    viewStore.canvas.add(ellipse);
 
-    const startDraw = event => this.handleDrawMove(event, { originX, originY }, circle);
+    const startDraw = event => this.handleDrawMove(event, { originX, originY }, ellipse, { x: 'rx', y: 'ry' });
 
     canvasWrapper.addEventListener('mousemove', startDraw);
     canvasWrapper.addEventListener('mouseup', () => this.stopDraw(startDraw));
@@ -157,7 +157,7 @@ class ToolsStore {
   }
 
   @action
-  handleDrawMove(event, { originX, originY }, object) {
+  handleDrawMove(event, { originX, originY }, object, sizeChangeProps = { x: 'width', y: 'height'}) {
     const { x, y } = viewStore.canvas.getPointer(event);
     if (originX > x) {
       object.set({ left: x });
@@ -165,9 +165,8 @@ class ToolsStore {
     if (originY > y) {
       object.set({ top: y });
     }
-    object.set({ width: Math.abs(originX - x) });
-    object.set({ height: Math.abs(originY - y) });
-    object.set({ radius: Math.abs(x - originX) });
+    object.set({ [sizeChangeProps.x]: Math.abs(originX - x) });
+    object.set({ [sizeChangeProps.y]: Math.abs(originY - y) });;
 
     viewStore.canvas.renderAll();
   }
