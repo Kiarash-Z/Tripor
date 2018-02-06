@@ -46,10 +46,25 @@ class LayersStore {
   }
 
   @action.bound
+  removeObject(target) {
+    if (target.triporType === 'Frame') {
+      this.treeData = this.treeData.filter(item => item.id !== target.id);
+      viewStore.removeChildrenFor(target.id);
+    } else {
+      this.treeData = this.treeData.map(item => {
+        if (item.id === target.parentFrame) {
+          item.children = item.children.filter(child => child.id !== target.id);
+        }
+        return item;
+      });
+    }
+  }
+
+  @action.bound
   addBorder(id) {
     const activeObj = viewStore.canvas.getObjects().find(obj => obj.id === id);
     activeObj.set('stroke', '#60C1F9');
-    activeObj.set('strokeWidth', 5);
+    activeObj.set('strokeWidth', 4);
     viewStore.canvas.renderAll();
   }
 

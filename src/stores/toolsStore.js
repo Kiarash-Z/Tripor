@@ -181,6 +181,7 @@ class ToolsStore {
   setActiveTool(prop, value) {
     this.tools = this.tools.map(tool => {
       tool.isSelected = tool[prop] === value;
+      if(tool[prop] !== value) tool.isOpen = false;
       return tool;
     });
   }

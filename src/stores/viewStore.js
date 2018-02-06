@@ -111,6 +111,15 @@ class ViewStore {
     // });
   }
 
+  @action.bound
+  removeChildrenFor(parentId) {
+    this.canvas.getObjects().forEach(obj => {
+      if (obj.parentFrame === parentId) {
+        obj.remove();
+      }
+    })
+  }
+
 
   @action
   setZoom(frameWidth, frameHeight) {

@@ -57,6 +57,7 @@ class AppStore {
         toolsStore.setActiveTool('name', 'Text');
         break;
       case 'Backspace':
+        layersStore.removeObject(viewStore.canvas.getActiveObject())
         viewStore.canvas.getActiveObject().remove();
         break;
     }
