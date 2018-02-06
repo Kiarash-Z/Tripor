@@ -92,9 +92,23 @@ class ViewStore {
 
   @action
   evaluateObjectFrame(obj, { originX, originY }) {
-    return this.canvas.getObjects().find(obj => obj.triporType === 'Frame').id
-    // const coords = obj.getCoords();
-    // console.log('ob coords', obj.top);
+    const frame = this.canvas
+      .getObjects()
+      .filter(object => object.triporType === 'Frame')
+      .map(frame =>  {
+        const  distanceLeft = Math.abs(frame.left - originX);
+        const distanceTop = Math.abs(frame.top - originY);
+        return {
+          id: frame.id,
+          distance: distanceLeft + distanceTop,
+        }
+      })
+      .reduce((prev, cur) => {
+        if (cur.distance < prev.distance) return cur;
+        return prev;
+      });
+    if (frame) return frame.id;
+    return false;
     // const frames = viewStore.canvas.forEachObject(object => {
     //   if (object.isFrame) {
 
