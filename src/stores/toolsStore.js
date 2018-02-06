@@ -77,6 +77,7 @@ class ToolsStore {
       height: 0,
       triporType: isFrame ? 'Frame' : 'Rectangle',
       triporIconType: isFrame ? 'tripor-frame' : 'tripor-rectangle',
+      triporName: this.evaluateObjectName(isFrame ? 'Frame' : 'Rectangle'),
       fill: isFrame ? frameDefaultBackground : shapeDefaultBackground,
       id: uuid(),
     });
@@ -109,6 +110,7 @@ class ToolsStore {
       radius: 1,
       triporType: 'Circle',
       triporIconType: 'tripor-circle',
+      triporName: this.evaluateObjectName('Circle'),
       fill: shapeDefaultBackground,
       id: uuid(),
     });
@@ -141,6 +143,7 @@ class ToolsStore {
       fill: 'black',
       triporIconType: 'tripor-text',
       triporType : 'Textbox',
+      triporName: this.evaluateObjectName('Textbox'),
       id: uuid(),
     });
     const parentFrame = viewStore.evaluateObjectFrame(textbox, { originX, originY });
@@ -175,6 +178,13 @@ class ToolsStore {
     canvasWrapper.removeEventListener('mousemove', startFunc);
     viewStore.canvas.selection = true;
     viewStore.toggleFramesControls(true);
+  }
+
+  @action
+  evaluateObjectName(type) {
+    const sameTypesCount = viewStore.canvas.getObjects().filter(obj => obj.triporType === type).length;
+    if (!sameTypesCount) return type;
+    return `${type} ${sameTypesCount}`;
   }
 
   @action.bound

@@ -133,7 +133,7 @@ class AppStore {
     const sameItem = oldList.find(item => item.id === viewStore.canvas.id);
     const data = {
       name: this.projectName,
-      canvas: viewStore.canvas.toJSON([ 'id', 'triporIconType', 'triporType', 'parentFrame']),
+      canvas: viewStore.canvas.toJSON([ 'id', 'triporIconType', 'triporType','triporName', 'parentFrame']),
       treeData: layersStore.treeData,
       id: viewStore.canvas.id,
       latestZoom: viewStore.canvas.getZoom(),

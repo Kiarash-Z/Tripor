@@ -28,7 +28,7 @@ class LayersStore {
         id: target.id,
         children: [],
         isExpanded: false,
-        name: target.triporType
+        name: target.triporName
       }];
     } else {
       this.treeData = this.treeData.map(item => {
@@ -36,7 +36,7 @@ class LayersStore {
           item.children.push({
             iconType: target.triporIconType,
             id: target.id,
-            name: target.triporType
+            name: target.triporName
           });
           item.isExpanded = true;
         }

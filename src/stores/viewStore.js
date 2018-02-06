@@ -50,6 +50,7 @@ class ViewStore {
       fill: 'white',
       triporType: 'Frame',
       triporIconType: 'tripor-frame',
+      triporName: 'Frame',
       id: uuid(),
     });
     this.setZoom(width, height);
