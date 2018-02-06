@@ -6,7 +6,7 @@ const LayersTree = ({ treeData, toggleExpand, onMouseEnter, onMouseLeave, onClic
         <div
           key={child.id}
           style={{ display: 'flex', alignItems: 'center' }}
-          className="bordered"
+          className="bordered pl-5"
           onMouseEnter={() => onMouseEnter(child.id)}
           onClick={() => onClick(child.id)}
           onMouseLeave={onMouseLeave}
@@ -21,24 +21,22 @@ const LayersTree = ({ treeData, toggleExpand, onMouseEnter, onMouseLeave, onClic
       return (
         <div className="tree__item" key={item.id}>
           <div
-            style={{ display: 'flex', alignItems: 'center' }}
+            style={{ display: 'flex', alignItems: 'center', paddingTop: '0.2em', paddingBottom: '0.2em' }}
             className="bordered"
             onMouseEnter={() => onMouseEnter(item.id)}
             onClick={() => onClick(item.id)}
             onMouseLeave={onMouseLeave}
           >
-            {item.children.length > 0 ?
               <i
                 className={`${icon} font-tiny p-1`}
-                style={{ color: '#797979'}}
+                style={{ color: '#797979', visibility: item.children.length > 0 ? 'visible' : 'hidden' }}
                 onClick={() => toggleExpand(item.id)}
-              /> : null
-            }
-            <i className={`${item.iconType} p-1`} />
+              />
+            <i className={`${item.iconType} mr-1`} />
             <span className="font-tiny">{item.name}</span>
           </div>
           {item.isExpanded > 0 ?
-          <div className="pl-5">
+          <div>
             {renderItemChildren(item.children)}
           </div> : null
           }
